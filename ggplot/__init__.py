@@ -26,9 +26,11 @@ from .geoms.geom_hline import geom_hline
 from .geoms.geom_abline import geom_abline
 from .geoms.geom_linerange import geom_linerange
 from .geoms.geom_errorbar import geom_errorbar
+from .geoms.geom_pointrange import geom_pointrange
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
+from .stats.addables import stat_summary, stat_summary_range
 from .addables import labs
 from .scales.scale_xy import scale_x_continuous, scale_y_continuous
 from .scales.scale_xy_discrete import scale_x_discrete, scale_y_discrete
@@ -52,6 +54,8 @@ __all__ = [
     "ggplot",
     "aes",
     "after_stat",
+    "stat_summary",
+    "stat_summary_range",
     "labs",
     "theme",
     "theme_minimal",
@@ -82,6 +86,7 @@ __all__ = [
     "geom_abline",
     "geom_linerange",
     "geom_errorbar",
+    "geom_pointrange",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
