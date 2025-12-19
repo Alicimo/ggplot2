@@ -31,6 +31,7 @@ from .themes.theme import theme
 from .themes.theme_defaults import theme_minimal
 from .positions.position_stack import position_stack
 from .positions.position_dodge import position_dodge
+from .coords.coord_cartesian import coord_cartesian
 
 __all__ = [
     "ggplot",
@@ -41,6 +42,7 @@ __all__ = [
     "theme_minimal",
     "position_stack",
     "position_dodge",
+    "coord_cartesian",
     "geom_point",
     "geom_line",
     "geom_bar",

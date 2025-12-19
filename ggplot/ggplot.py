@@ -14,6 +14,7 @@ from .layers import Layers
 from .mapping.aes import aes
 from .typing import DataLike, PlotAddable
 from .facets.facet_null import facet_null
+from .coords.coord_cartesian import CoordCartesian
 
 
 class ggplot:
@@ -33,6 +34,7 @@ class ggplot:
         self.theme: dict[str, Any] = {}
         self.scales: list[Any] = []
         self.facet: Any = facet_null()
+        self.coord: Any = CoordCartesian()
 
     def __iadd__(self, other: PlotAddable | list[PlotAddable] | None):
         if other is None:
