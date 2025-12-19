@@ -42,5 +42,7 @@ class GeomPoint(geom):
 def geom_point(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomPoint:
     mapping = mapping if mapping is not None else aes()
     g = GeomPoint(mapping=mapping, data=data)
+    if "position" in kwargs:
+        g.position = kwargs.pop("position")
     g.params.update(kwargs)
     return g

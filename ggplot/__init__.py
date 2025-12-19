@@ -39,6 +39,8 @@ from .themes.theme import theme
 from .themes.theme_defaults import theme_minimal
 from .positions.position_stack import position_stack
 from .positions.position_dodge import position_dodge
+from .positions.position_jitter import position_jitter
+from .positions.position_nudge import position_nudge
 from .coords.coord_cartesian import coord_cartesian
 from .coords.coord_flip import coord_flip
 
@@ -51,6 +53,8 @@ __all__ = [
     "theme_minimal",
     "position_stack",
     "position_dodge",
+    "position_jitter",
+    "position_nudge",
     "coord_cartesian",
     "coord_flip",
     "geom_point",
