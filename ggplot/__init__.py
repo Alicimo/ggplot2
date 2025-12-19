@@ -57,6 +57,8 @@ from .positions.position_nudge import position_nudge
 from .positions.position_jitterdodge import position_jitterdodge
 from .coords.coord_cartesian import coord_cartesian
 from .coords.coord_flip import coord_flip
+from .coords.coord_fixed import coord_fixed
+from .coords.coord_trans import coord_trans
 
 __all__ = [
     "ggplot",
@@ -74,6 +76,8 @@ __all__ = [
     "position_jitterdodge",
     "coord_cartesian",
     "coord_flip",
+    "coord_fixed",
+    "coord_trans",
     "geom_point",
     "geom_line",
     "geom_bar",

@@ -1,5 +1,7 @@
 from .coord import coord
 from .coord_cartesian import coord_cartesian
 from .coord_flip import coord_flip
+from .coord_fixed import coord_fixed
+from .coord_trans import coord_trans
 
-__all__ = ["coord", "coord_cartesian", "coord_flip"]
+__all__ = ["coord", "coord_cartesian", "coord_flip", "coord_fixed", "coord_trans"]
