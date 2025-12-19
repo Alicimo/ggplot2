@@ -9,6 +9,7 @@ from .geom_text import geom_text
 from .geom_rect import geom_rect
 from .geom_ribbon import geom_ribbon
 from .geom_area import geom_area
+from .geom_vline import geom_vline
 
 __all__ = [
     "geom",
@@ -22,4 +23,5 @@ __all__ = [
     "geom_rect",
     "geom_ribbon",
     "geom_area",
+    "geom_vline",
 ]

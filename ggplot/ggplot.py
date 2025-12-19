@@ -93,6 +93,10 @@ class ggplot:
         return ggplot.Built(plot=self, layers_data=layers_data)
 
     def draw(self) -> go.Figure:
+        # Reset per-draw transient state.
+        if hasattr(self, "_shapes"):
+            self._shapes = []
+
         built = self.build()
 
         # Faceting (v0: facet_null or facet_wrap on a single variable)
@@ -128,6 +132,9 @@ class ggplot:
             fig.update_xaxes(title_text=x)
         if y := self.labels.get("y"):
             fig.update_yaxes(title_text=y)
+
+        if hasattr(self, "_shapes") and self._shapes:
+            fig.update_layout(shapes=list(self._shapes))
 
         # Theme (v0): map a few common knobs to Plotly layout
         if self.theme:

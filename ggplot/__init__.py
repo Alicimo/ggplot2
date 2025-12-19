@@ -15,6 +15,7 @@ from .geoms.geom_text import geom_text
 from .geoms.geom_rect import geom_rect
 from .geoms.geom_ribbon import geom_ribbon
 from .geoms.geom_area import geom_area
+from .geoms.geom_vline import geom_vline
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -46,6 +47,7 @@ __all__ = [
     "geom_rect",
     "geom_ribbon",
     "geom_area",
+    "geom_vline",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
