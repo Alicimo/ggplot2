@@ -111,7 +111,10 @@ def evaluate_mapping_value(
     if isinstance(value, str):
         if value in df.columns:
             return df[value]
+        # If the value looks like an identifier but isn't a column/env name,
+        # treat it as a missing column for friendlier errors.
+        if value.isidentifier() and value not in env:
+            raise MappingError(f"Unknown column in mapping: {value!r}")
         return _safe_eval_expr(value, df, env)
 
     return value
-
