@@ -34,12 +34,17 @@ jobs:
           from ggplot import (
               ggplot,
               aes,
+              after_stat,
               geom_point,
+              geom_line,
+              geom_bar,
+              geom_histogram,
               labs,
               theme,
               theme_minimal,
               facet_wrap,
               scale_x_continuous,
+              scale_color_manual,
               ggsave,
           )
 
@@ -60,6 +65,29 @@ jobs:
           assert fig.layout.title.text == 't'
           assert list(fig.layout.xaxis.range) == [0, 10]
           assert list(fig.layout.xaxis.tickvals) == [0, 5, 10]
+
+          # Discrete color manual scale (legend via trace splitting)
+          p2 = ggplot(df, aes('x', 'y', color='g')) + geom_point() + scale_color_manual({'a': 'red', 'b': 'blue'})
+          fig2 = p2.draw()
+          assert len(fig2.data) == 2
+          assert set(t.name for t in fig2.data) == {'a', 'b'}
+
+          # geom_line
+          p3 = ggplot(df, aes('x', 'y')) + geom_line()
+          fig3 = p3.draw()
+          assert len(fig3.data) == 1
+
+          # geom_bar + after_stat('count')
+          df_bar = pd.DataFrame({'x': ['a', 'a', 'b']})
+          p4 = ggplot(df_bar, aes('x', y=after_stat('count'))) + geom_bar()
+          fig4 = p4.draw()
+          assert len(fig4.data) == 1
+          assert list(fig4.data[0].y) == [2, 1]
+
+          # geom_histogram
+          p5 = ggplot(pd.DataFrame({'x': [1, 1, 2, 3, 3, 3]}), aes('x')) + geom_histogram(bins=3)
+          fig5 = p5.draw()
+          assert len(fig5.data) == 1
 
           with tempfile.TemporaryDirectory() as d:
               out = Path(d) / 'plot.png'
