@@ -4,6 +4,7 @@ from .stat_count import stat_count
 from .stat_bin import stat_bin
 from .stat_boxplot import stat_boxplot
 from .stat_density import stat_density
+from .stat_smooth import stat_smooth
 
 __all__ = [
     "stat",
@@ -12,4 +13,5 @@ __all__ = [
     "stat_bin",
     "stat_boxplot",
     "stat_density",
+    "stat_smooth",
 ]

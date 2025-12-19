@@ -19,6 +19,7 @@ from .geoms.geom_area import geom_area
 from .geoms.geom_vline import geom_vline
 from .geoms.geom_boxplot import geom_boxplot
 from .geoms.geom_violin import geom_violin
+from .geoms.geom_smooth import geom_smooth
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -60,6 +61,7 @@ __all__ = [
     "geom_vline",
     "geom_boxplot",
     "geom_violin",
+    "geom_smooth",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
