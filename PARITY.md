@@ -16,8 +16,11 @@ This document tracks feature parity between this project (`ggplot2` distribution
 - [x] `aes` + simple expression evaluation
 - [x] `after_stat` (basic)
 - [x] `ggsave` (Plotly + Kaleido)
-- [ ] `qplot`
-- [ ] plot composition operators (`|`, `/`, etc.)
+
+### Convenience
+
+- [x] `qplot` (minimal)
+- [x] basic plot composition (`|`, `/`)
 
 ### Geoms
 
@@ -73,5 +76,7 @@ Missing (examples of big ones):
 ### Coords
 
 - [x] cartesian (implicit)
-- [ ] `coord_flip`, `coord_fixed`, `coord_trans`, `coord_polar`
-
+- [x] `coord_flip` (minimal)
+- [x] `coord_fixed` (stub)
+- [x] `coord_trans` (stub)
+- [ ] `coord_polar`
