@@ -32,9 +32,9 @@ class labs:
 
 
 class theme:
-    """Theme addable.
+    """Backwards-compatible theme addable.
 
-    Phase 0: placeholder; stores theme params dict under `plot.theme`.
+    Prefer importing `theme` from `ggplot.themes` going forward.
     """
 
     def __init__(self, **kwargs: Any):
@@ -49,4 +49,3 @@ class theme:
             current = other.theme
         current.update(self.kwargs)
         return other
-

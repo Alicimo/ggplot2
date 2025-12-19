@@ -104,6 +104,29 @@ class ggplot:
         if y := self.labels.get("y"):
             fig.update_yaxes(title_text=y)
 
+        # Theme (v0): map a few common knobs to Plotly layout
+        if self.theme:
+            layout_updates = {}
+            axis_updates_x = {}
+            axis_updates_y = {}
+            if "plot_bgcolor" in self.theme:
+                layout_updates["plot_bgcolor"] = self.theme["plot_bgcolor"]
+            if "paper_bgcolor" in self.theme:
+                layout_updates["paper_bgcolor"] = self.theme["paper_bgcolor"]
+            if "gridcolor" in self.theme:
+                axis_updates_x["gridcolor"] = self.theme["gridcolor"]
+                axis_updates_y["gridcolor"] = self.theme["gridcolor"]
+            if "xaxis_showgrid" in self.theme:
+                axis_updates_x["showgrid"] = self.theme["xaxis_showgrid"]
+            if "yaxis_showgrid" in self.theme:
+                axis_updates_y["showgrid"] = self.theme["yaxis_showgrid"]
+            if layout_updates:
+                fig.update_layout(**layout_updates)
+            if axis_updates_x:
+                fig.update_xaxes(**axis_updates_x)
+            if axis_updates_y:
+                fig.update_yaxes(**axis_updates_y)
+
         # Apply trained scales (v0: only x/y continuous limits and breaks).
         for s in getattr(self, "scales", []):
             if getattr(s, "aesthetic", None) == "x":
