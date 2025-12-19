@@ -8,6 +8,7 @@ from .ggplot import ggplot
 from .geoms.geom_point import geom_point
 from .geoms.geom_line import geom_line
 from .geoms.geom_bar import geom_bar
+from .geoms.geom_col import geom_col
 from .geoms.geom_histogram import geom_histogram
 from .geoms.geom_path import geom_path
 from .geoms.geom_segment import geom_segment
@@ -46,6 +47,7 @@ __all__ = [
     "geom_point",
     "geom_line",
     "geom_bar",
+    "geom_col",
     "geom_histogram",
     "geom_path",
     "geom_segment",

@@ -2,6 +2,7 @@ from .geom import geom
 from .geom_point import geom_point
 from .geom_line import geom_line
 from .geom_bar import geom_bar
+from .geom_col import geom_col
 from .geom_histogram import geom_histogram
 from .geom_path import geom_path
 from .geom_segment import geom_segment
@@ -16,6 +17,7 @@ __all__ = [
     "geom_point",
     "geom_line",
     "geom_bar",
+    "geom_col",
     "geom_histogram",
     "geom_path",
     "geom_segment",
