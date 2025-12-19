@@ -12,6 +12,7 @@ from .geom_ribbon import geom_ribbon
 from .geom_area import geom_area
 from .geom_vline import geom_vline
 from .geom_boxplot import geom_boxplot
+from .geom_violin import geom_violin
 
 __all__ = [
     "geom",
@@ -28,4 +29,5 @@ __all__ = [
     "geom_area",
     "geom_vline",
     "geom_boxplot",
+    "geom_violin",
 ]
