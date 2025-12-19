@@ -53,6 +53,16 @@ class ggplot:
     def __radd__(self, other: Any) -> "ggplot":
         raise PlotAddError(f"Cannot add ggplot to {type(other)!r}")
 
+    def __or__(self, rhs):
+        from .composition import Compose
+
+        return Compose([self, rhs], direction="h")
+
+    def __truediv__(self, rhs):
+        from .composition import Compose
+
+        return Compose([self, rhs], direction="v")
+
     @dataclass(frozen=True)
     class Built:
         plot: "ggplot"

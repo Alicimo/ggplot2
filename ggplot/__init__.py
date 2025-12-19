@@ -32,6 +32,7 @@ from .geoms.geom_rug import geom_rug
 from .geoms.geom_dotplot import geom_dotplot
 from .ggsave import ggsave
 from .qplot import qplot
+from .composition import Compose
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
 from .stats.addables import stat_summary, stat_summary_range
@@ -99,6 +100,7 @@ __all__ = [
     "geom_dotplot",
     "ggsave",
     "qplot",
+    "Compose",
     "scale_x_continuous",
     "scale_y_continuous",
     "scale_x_discrete",
