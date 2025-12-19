@@ -9,6 +9,12 @@ from .geoms.geom_point import geom_point
 from .geoms.geom_line import geom_line
 from .geoms.geom_bar import geom_bar
 from .geoms.geom_histogram import geom_histogram
+from .geoms.geom_path import geom_path
+from .geoms.geom_segment import geom_segment
+from .geoms.geom_text import geom_text
+from .geoms.geom_rect import geom_rect
+from .geoms.geom_ribbon import geom_ribbon
+from .geoms.geom_area import geom_area
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -34,6 +40,12 @@ __all__ = [
     "geom_line",
     "geom_bar",
     "geom_histogram",
+    "geom_path",
+    "geom_segment",
+    "geom_text",
+    "geom_rect",
+    "geom_ribbon",
+    "geom_area",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
