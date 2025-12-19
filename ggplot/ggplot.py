@@ -63,12 +63,20 @@ class ggplot:
             df = lyr.setup_data(plot_data)
             df = lyr.resolve_mapping(df, plot_mapping=self.mapping)
 
+            fill_label = df["fill"].copy() if "fill" in df.columns else None
+
             # Preserve unmapped discrete labels for guides before scales overwrite.
             # Convention: store original discrete values in a "colour" column.
             if "color" in df.columns and "colour" not in df.columns:
                 df["colour"] = df["color"]
+            if "fill" in df.columns and "fill_label" not in df.columns:
+                df["fill_label"] = df["fill"]
 
             df = lyr.stat.compute(df, mapping=dict(lyr.mapping))
+
+            # Ensure fill_label survives stat_count grouping.
+            if "fill" in df.columns and "fill_label" not in df.columns:
+                df["fill_label"] = df["fill"]
 
             # Resolve after_stat mappings after stat has produced computed columns.
             df = lyr.resolve_after_stat(df, plot_mapping=self.mapping)
@@ -80,6 +88,7 @@ class ggplot:
                 aesthetic = getattr(s, "aesthetic", None)
                 if aesthetic in df.columns and hasattr(s, "map"):
                     df[aesthetic] = s.map(df[aesthetic])
+
             layers_data.append(df)
         return ggplot.Built(plot=self, layers_data=layers_data)
 

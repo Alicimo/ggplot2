@@ -14,7 +14,11 @@ from .mapping.aes import aes
 from .mapping.evaluation import after_stat
 from .addables import labs
 from .scales.scale_xy import scale_x_continuous, scale_y_continuous
-from .scales.scale_discrete import scale_color_manual, scale_colour_manual
+from .scales.scale_discrete import (
+    scale_color_manual,
+    scale_colour_manual,
+    scale_fill_manual,
+)
 from .facets.facet_wrap import facet_wrap
 from .themes.theme import theme
 from .themes.theme_defaults import theme_minimal
@@ -35,5 +39,6 @@ __all__ = [
     "scale_y_continuous",
     "scale_color_manual",
     "scale_colour_manual",
+    "scale_fill_manual",
     "facet_wrap",
 ]

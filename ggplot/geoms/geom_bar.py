@@ -19,6 +19,9 @@ class GeomBar(geom):
         # Default stat for bars is count, matching ggplot2/plotnine behavior.
         if self.stat is None:
             self.stat = stat_count()
+        # Default stacking for bars.
+        if self.position is None:
+            self.position = position_stack()
 
     def to_traces(self, df, *, plot):
         if "x" not in df.columns:
@@ -26,6 +29,20 @@ class GeomBar(geom):
         ycol = "y" if "y" in df.columns else "count" if "count" in df.columns else None
         if ycol is None:
             return []
+
+        if "fill" in df.columns:
+            traces = []
+            # If we computed stacking, all rows for each fill share same x.
+            for key, sub in df.groupby("fill", dropna=False, sort=False):
+                name = sub["fill_label"].iloc[0] if "fill_label" in sub.columns and not sub.empty else key
+                marker = {"color": key}
+                if "ymin" in sub.columns and "ymax" in sub.columns:
+                    base = sub["ymin"]
+                    height = sub["ymax"] - sub["ymin"]
+                    traces.append(go.Bar(x=sub["x"], y=height, base=base, marker=marker, name=str(name)))
+                else:
+                    traces.append(go.Bar(x=sub["x"], y=sub[ycol], marker=marker, name=str(name)))
+            return traces
 
         # If stacking was computed, render using base + height.
         if "ymin" in df.columns and "ymax" in df.columns:

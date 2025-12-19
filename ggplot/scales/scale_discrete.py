@@ -28,3 +28,6 @@ def scale_color_manual(values: Mapping[Any, Any]) -> scale_discrete:
 def scale_colour_manual(values: Mapping[Any, Any]) -> scale_discrete:
     return scale_color_manual(values)
 
+
+def scale_fill_manual(values: Mapping[Any, Any]) -> scale_discrete:
+    return scale_discrete(aesthetic="fill", values=values)
