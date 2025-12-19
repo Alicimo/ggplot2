@@ -6,12 +6,14 @@ from typing import Any, Optional
 
 import pandas as pd
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 from ._utils.data import as_data_frame
 from .exceptions import PlotAddError
 from .layers import Layers
 from .mapping.aes import aes
 from .typing import DataLike, PlotAddable
+from .facets.facet_null import facet_null
 
 
 class ggplot:
@@ -30,6 +32,7 @@ class ggplot:
         self.labels: dict[str, str] = {}
         self.theme: dict[str, Any] = {}
         self.scales: list[Any] = []
+        self.facet: Any = facet_null()
 
     def __iadd__(self, other: PlotAddable | list[PlotAddable] | None):
         if other is None:
@@ -66,13 +69,33 @@ class ggplot:
 
     def draw(self) -> go.Figure:
         built = self.build()
-        fig = go.Figure()
-        for lyr, df in zip(self.layers, built.layers_data, strict=False):
-            geom = lyr.geom
-            to_traces = getattr(geom, "to_traces", None)
-            if callable(to_traces):
-                for trace in to_traces(df, plot=self):
-                    fig.add_trace(trace)
+
+        # Faceting (v0: facet_null or facet_wrap on a single variable)
+        # We facet based on the plot data only (layers with their own data are
+        # still rendered in each panel if they carry the facet column).
+        panels = self.facet.get_panels(self.data)
+        n_panels = len(panels)
+        nrow, ncol = (1, 1)
+        if hasattr(self.facet, "layout"):
+            nrow, ncol = self.facet.layout(n_panels)
+
+        fig = make_subplots(rows=nrow, cols=ncol, subplot_titles=[t for t, _ in panels])
+        for pidx, (_, panel_df) in enumerate(panels):
+            row = pidx // ncol + 1
+            col = pidx % ncol + 1
+            for lyr, layer_df in zip(self.layers, built.layers_data, strict=False):
+                # If layer data includes the facet column, filter to this panel.
+                df = layer_df
+                facet_col = getattr(self.facet, "facets", None)
+                if facet_col and facet_col in df.columns and facet_col in panel_df.columns:
+                    key = panel_df[facet_col].iloc[0] if not panel_df.empty else None
+                    df = df[df[facet_col] == key]
+
+                geom = lyr.geom
+                to_traces = getattr(geom, "to_traces", None)
+                if callable(to_traces):
+                    for trace in to_traces(df, plot=self):
+                        fig.add_trace(trace, row=row, col=col)
 
         if title := self.labels.get("title"):
             fig.update_layout(title=title)
