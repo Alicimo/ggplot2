@@ -28,6 +28,4 @@ class position_dodge(position):
         # Offsets in [-width/2, width/2]
         offsets = (g_codes - (n - 1) / 2) * (self.width / n)
         out["x"] = x_codes.astype(float) + offsets
-        out["_x_labels"] = x_uniques
         return out
-

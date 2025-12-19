@@ -29,6 +29,8 @@ from .scales.scale_discrete import (
 from .facets.facet_wrap import facet_wrap
 from .themes.theme import theme
 from .themes.theme_defaults import theme_minimal
+from .positions.position_stack import position_stack
+from .positions.position_dodge import position_dodge
 
 __all__ = [
     "ggplot",
@@ -37,6 +39,8 @@ __all__ = [
     "labs",
     "theme",
     "theme_minimal",
+    "position_stack",
+    "position_dodge",
     "geom_point",
     "geom_line",
     "geom_bar",
