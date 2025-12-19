@@ -16,6 +16,8 @@ from .geom_violin import geom_violin
 from .geom_smooth import geom_smooth
 from .geom_tile import geom_tile
 from .geom_polygon import geom_polygon
+from .geom_hline import geom_hline
+from .geom_abline import geom_abline
 
 __all__ = [
     "geom",
@@ -36,4 +38,6 @@ __all__ = [
     "geom_smooth",
     "geom_tile",
     "geom_polygon",
+    "geom_hline",
+    "geom_abline",
 ]

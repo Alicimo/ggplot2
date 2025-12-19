@@ -22,6 +22,8 @@ from .geoms.geom_violin import geom_violin
 from .geoms.geom_smooth import geom_smooth
 from .geoms.geom_tile import geom_tile
 from .geoms.geom_polygon import geom_polygon
+from .geoms.geom_hline import geom_hline
+from .geoms.geom_abline import geom_abline
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -74,6 +76,8 @@ __all__ = [
     "geom_smooth",
     "geom_tile",
     "geom_polygon",
+    "geom_hline",
+    "geom_abline",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
