@@ -29,6 +29,7 @@ class ggplot:
         self.layers: Layers = Layers()
         self.labels: dict[str, str] = {}
         self.theme: dict[str, Any] = {}
+        self.scales: list[Any] = []
 
     def __iadd__(self, other: PlotAddable | list[PlotAddable] | None):
         if other is None:
@@ -79,6 +80,33 @@ class ggplot:
             fig.update_xaxes(title_text=x)
         if y := self.labels.get("y"):
             fig.update_yaxes(title_text=y)
+
+        # Apply trained scales (v0: only x/y continuous limits and breaks).
+        for s in getattr(self, "scales", []):
+            if getattr(s, "aesthetic", None) == "x":
+                xdomain = None
+                for df in built.layers_data:
+                    if "x" in df.columns:
+                        xdomain = s.train(df["x"]) if xdomain is None else (
+                            min(xdomain[0], s.train(df["x"])[0]),
+                            max(xdomain[1], s.train(df["x"])[1]),
+                        )
+                if xdomain is not None:
+                    fig.update_xaxes(range=list(xdomain))
+                if getattr(s, "breaks", None) is not None:
+                    fig.update_xaxes(tickmode="array", tickvals=list(s.breaks))
+            if getattr(s, "aesthetic", None) == "y":
+                ydomain = None
+                for df in built.layers_data:
+                    if "y" in df.columns:
+                        ydomain = s.train(df["y"]) if ydomain is None else (
+                            min(ydomain[0], s.train(df["y"])[0]),
+                            max(ydomain[1], s.train(df["y"])[1]),
+                        )
+                if ydomain is not None:
+                    fig.update_yaxes(range=list(ydomain))
+                if getattr(s, "breaks", None) is not None:
+                    fig.update_yaxes(tickmode="array", tickvals=list(s.breaks))
         return fig
 
     def to_plotly(self) -> go.Figure:

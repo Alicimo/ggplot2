@@ -10,6 +10,7 @@ from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
 from .addables import labs, theme
+from .scales.scale_xy import scale_x_continuous, scale_y_continuous
 
 __all__ = [
     "ggplot",
@@ -19,4 +20,6 @@ __all__ = [
     "theme",
     "geom_point",
     "ggsave",
+    "scale_x_continuous",
+    "scale_y_continuous",
 ]
