@@ -30,6 +30,7 @@ from .geoms.geom_pointrange import geom_pointrange
 from .geoms.geom_density import geom_density
 from .geoms.geom_rug import geom_rug
 from .geoms.geom_dotplot import geom_dotplot
+from .geoms.geom_jitter import geom_jitter
 from .ggsave import ggsave
 from .qplot import qplot
 from .composition import Compose
@@ -98,6 +99,7 @@ __all__ = [
     "geom_density",
     "geom_rug",
     "geom_dotplot",
+    "geom_jitter",
     "ggsave",
     "qplot",
     "Compose",

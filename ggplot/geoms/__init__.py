@@ -24,6 +24,7 @@ from .geom_pointrange import geom_pointrange
 from .geom_density import geom_density
 from .geom_rug import geom_rug
 from .geom_dotplot import geom_dotplot
+from .geom_jitter import geom_jitter
 
 __all__ = [
     "geom",
@@ -52,4 +53,5 @@ __all__ = [
     "geom_density",
     "geom_rug",
     "geom_dotplot",
+    "geom_jitter",
 ]
