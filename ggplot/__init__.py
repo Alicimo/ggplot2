@@ -7,6 +7,7 @@ API wiring. Rendering/geoms/stats/scales come in later phases.
 from .ggplot import ggplot
 from .geoms.geom_point import geom_point
 from .geoms.geom_line import geom_line
+from .geoms.geom_bar import geom_bar
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -25,6 +26,7 @@ __all__ = [
     "theme_minimal",
     "geom_point",
     "geom_line",
+    "geom_bar",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
