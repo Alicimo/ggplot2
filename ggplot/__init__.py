@@ -6,8 +6,17 @@ API wiring. Rendering/geoms/stats/scales come in later phases.
 
 from .ggplot import ggplot
 from .geoms.geom_point import geom_point
+from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
 from .addables import labs, theme
 
-__all__ = ["ggplot", "aes", "after_stat", "labs", "theme", "geom_point"]
+__all__ = [
+    "ggplot",
+    "aes",
+    "after_stat",
+    "labs",
+    "theme",
+    "geom_point",
+    "ggsave",
+]
