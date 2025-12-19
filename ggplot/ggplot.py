@@ -164,6 +164,10 @@ class ggplot:
         # Apply trained scales (v0: only x/y continuous limits and breaks).
         for s in getattr(self, "scales", []):
             if getattr(s, "aesthetic", None) == "x":
+                if hasattr(s, "limits") and getattr(s, "limits", None) is not None and (not hasattr(s, "train")):
+                    # discrete axis ordering
+                    fig.update_xaxes(categoryorder="array", categoryarray=list(s.limits))
+                    continue
                 xdomain = None
                 for df in built.layers_data:
                     if "x" in df.columns:
@@ -176,6 +180,9 @@ class ggplot:
                 if getattr(s, "breaks", None) is not None:
                     fig.update_xaxes(tickmode="array", tickvals=list(s.breaks))
             if getattr(s, "aesthetic", None) == "y":
+                if hasattr(s, "limits") and getattr(s, "limits", None) is not None and (not hasattr(s, "train")):
+                    fig.update_yaxes(categoryorder="array", categoryarray=list(s.limits))
+                    continue
                 ydomain = None
                 for df in built.layers_data:
                     if "y" in df.columns:

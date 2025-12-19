@@ -25,6 +25,7 @@ from .mapping.aes import aes
 from .mapping.evaluation import after_stat
 from .addables import labs
 from .scales.scale_xy import scale_x_continuous, scale_y_continuous
+from .scales.scale_xy_discrete import scale_x_discrete, scale_y_discrete
 from .scales.scale_discrete import (
     scale_color_manual,
     scale_colour_manual,
@@ -65,6 +66,8 @@ __all__ = [
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
+    "scale_x_discrete",
+    "scale_y_discrete",
     "scale_color_manual",
     "scale_colour_manual",
     "scale_fill_manual",
