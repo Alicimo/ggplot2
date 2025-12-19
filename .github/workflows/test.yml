@@ -1,0 +1,69 @@
+name: tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install
+        working-directory: ggplot2
+
+      - name: Sync deps
+        run: uv sync --frozen
+        working-directory: ggplot2
+
+      - name: Smoke import
+        run: |
+          uv run python - <<'PY'
+          import tempfile
+          from pathlib import Path
+          import pandas as pd
+          from ggplot import (
+              ggplot,
+              aes,
+              geom_point,
+              labs,
+              theme,
+              theme_minimal,
+              facet_wrap,
+              scale_x_continuous,
+              ggsave,
+          )
+
+          df = pd.DataFrame({'x':[1,2,3,1,2,3], 'y':[2,3,5,2,3,4], 'g':['a','a','a','b','b','b']})
+
+          p = (
+              ggplot(df, aes('x', 'y'))
+              + geom_point()
+              + labs(title='t', x='X', y='Y')
+              + theme(font='Arial')
+              + theme_minimal()
+              + facet_wrap('g', ncol=2)
+              + scale_x_continuous(limits=(0, 10), breaks=[0, 5, 10])
+          )
+
+          fig = p.draw()
+          assert len(fig.data) == 2  # one geom trace per facet panel
+          assert fig.layout.title.text == 't'
+          assert list(fig.layout.xaxis.range) == [0, 10]
+          assert list(fig.layout.xaxis.tickvals) == [0, 5, 10]
+
+          with tempfile.TemporaryDirectory() as d:
+              out = Path(d) / 'plot.png'
+              ggsave(out, plot=p, width=300, height=200)
+              assert out.exists()
+          PY
+        working-directory: ggplot2
