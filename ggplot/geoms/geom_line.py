@@ -14,10 +14,33 @@ class GeomLine(geom):
     def to_traces(self, df, *, plot):
         if "x" not in df.columns or "y" not in df.columns:
             return []
-        line = {}
-        if "color" in df.columns:
-            line["color"] = df["color"]
-        return [go.Scatter(x=df["x"], y=df["y"], mode="lines", line=line)]
+
+        group_col = None
+        if "group" in df.columns:
+            group_col = "group"
+        elif "color" in df.columns:
+            group_col = "color"
+
+        if group_col is None:
+            return [go.Scatter(x=df["x"], y=df["y"], mode="lines")]
+
+        traces = []
+        for key, sub in df.groupby(group_col, dropna=False, sort=False):
+            sub = sub.sort_values("x", kind="stable")
+            line = {}
+            if "color" in sub.columns:
+                # if color scale already applied, key may be a color value
+                line["color"] = sub["color"].iloc[0]
+            traces.append(
+                go.Scatter(
+                    x=sub["x"],
+                    y=sub["y"],
+                    mode="lines",
+                    line=line,
+                    name=str(key),
+                )
+            )
+        return traces
 
 
 def geom_line(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomLine:
@@ -25,4 +48,3 @@ def geom_line(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwarg
     g = GeomLine(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-
