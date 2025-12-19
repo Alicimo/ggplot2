@@ -44,3 +44,18 @@ class layer:
             out[aes_name] = resolved
         return out
 
+    def resolve_after_stat(
+        self,
+        df: pd.DataFrame,
+        *,
+        plot_mapping: aes,
+        env: Mapping[str, Any] | None = None,
+    ) -> pd.DataFrame:
+        mapping = aes(**plot_mapping) if self.inherit_aes else aes()
+        mapping.update(self.mapping)
+        out = df.copy()
+        for aes_name, value in mapping.items():
+            resolved = evaluate_mapping_value(value, out, env=env)
+            if isinstance(resolved, after_stat):
+                out[aes_name] = evaluate_mapping_value(resolved.expr, out, env=env)
+        return out

@@ -69,6 +69,10 @@ class ggplot:
                 df["colour"] = df["color"]
 
             df = lyr.stat.compute(df, mapping=dict(lyr.mapping))
+
+            # Resolve after_stat mappings after stat has produced computed columns.
+            df = lyr.resolve_after_stat(df, plot_mapping=self.mapping)
+
             df = lyr.position.adjust(df)
 
             # Apply discrete scales (e.g. scale_color_manual)
