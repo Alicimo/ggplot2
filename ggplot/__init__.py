@@ -27,6 +27,7 @@ from .geoms.geom_abline import geom_abline
 from .geoms.geom_linerange import geom_linerange
 from .geoms.geom_errorbar import geom_errorbar
 from .geoms.geom_pointrange import geom_pointrange
+from .geoms.geom_density import geom_density
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -88,6 +89,7 @@ __all__ = [
     "geom_linerange",
     "geom_errorbar",
     "geom_pointrange",
+    "geom_density",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",

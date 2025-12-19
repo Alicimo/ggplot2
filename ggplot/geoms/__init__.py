@@ -21,6 +21,7 @@ from .geom_abline import geom_abline
 from .geom_linerange import geom_linerange
 from .geom_errorbar import geom_errorbar
 from .geom_pointrange import geom_pointrange
+from .geom_density import geom_density
 
 __all__ = [
     "geom",
@@ -46,4 +47,5 @@ __all__ = [
     "geom_linerange",
     "geom_errorbar",
     "geom_pointrange",
+    "geom_density",
 ]
