@@ -29,6 +29,7 @@ from .geoms.geom_errorbar import geom_errorbar
 from .geoms.geom_pointrange import geom_pointrange
 from .geoms.geom_density import geom_density
 from .geoms.geom_rug import geom_rug
+from .geoms.geom_dotplot import geom_dotplot
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -92,6 +93,7 @@ __all__ = [
     "geom_pointrange",
     "geom_density",
     "geom_rug",
+    "geom_dotplot",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
