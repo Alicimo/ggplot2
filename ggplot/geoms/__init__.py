@@ -14,6 +14,8 @@ from .geom_vline import geom_vline
 from .geom_boxplot import geom_boxplot
 from .geom_violin import geom_violin
 from .geom_smooth import geom_smooth
+from .geom_tile import geom_tile
+from .geom_polygon import geom_polygon
 
 __all__ = [
     "geom",
@@ -32,4 +34,6 @@ __all__ = [
     "geom_boxplot",
     "geom_violin",
     "geom_smooth",
+    "geom_tile",
+    "geom_polygon",
 ]
