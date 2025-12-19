@@ -85,6 +85,11 @@ class ggplot:
 
             df = lyr.position.adjust(df)
 
+            # Apply transformed position scales to data (e.g. log10).
+            for s in getattr(self, "scales", []):
+                if hasattr(s, "apply") and getattr(s, "aesthetic", None) in df.columns:
+                    df[s.aesthetic] = s.apply(df[s.aesthetic])
+
             # Apply discrete scales (e.g. scale_color_manual)
             for s in getattr(self, "scales", []):
                 aesthetic = getattr(s, "aesthetic", None)

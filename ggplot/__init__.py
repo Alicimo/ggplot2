@@ -39,6 +39,7 @@ from .scales.scale_discrete import (
     scale_colour_manual,
     scale_fill_manual,
 )
+from .scales.scale_transforms import scale_x_log10, scale_y_log10
 from .facets.facet_wrap import facet_wrap
 from .facets.facet_grid import facet_grid
 from .themes.theme import theme
@@ -95,6 +96,8 @@ __all__ = [
     "scale_color_manual",
     "scale_colour_manual",
     "scale_fill_manual",
+    "scale_x_log10",
+    "scale_y_log10",
     "facet_wrap",
     "facet_grid",
 ]
