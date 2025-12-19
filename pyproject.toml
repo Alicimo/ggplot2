@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ggplot2"
+version = "0.0.0"
+description = "A Plotly-backed port of plotnine (ggplot-style Grammar of Graphics)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Contributors"}]
+dependencies = [
+  "plotly>=5",
+  "pandas>=2",
+  "numpy>=1.24",
+  "kaleido>=0.2",
+]
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ggplot*"]
+
+[tool.uv.workspace]
+members = [
+    "ggplot2",
+]
+
