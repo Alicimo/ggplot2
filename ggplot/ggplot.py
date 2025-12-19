@@ -62,8 +62,20 @@ class ggplot:
         for lyr in self.layers:
             df = lyr.setup_data(plot_data)
             df = lyr.resolve_mapping(df, plot_mapping=self.mapping)
+
+            # Preserve unmapped discrete labels for guides before scales overwrite.
+            # Convention: store original discrete values in a "colour" column.
+            if "color" in df.columns and "colour" not in df.columns:
+                df["colour"] = df["color"]
+
             df = lyr.stat.compute(df, mapping=dict(lyr.mapping))
             df = lyr.position.adjust(df)
+
+            # Apply discrete scales (e.g. scale_color_manual)
+            for s in getattr(self, "scales", []):
+                aesthetic = getattr(s, "aesthetic", None)
+                if aesthetic in df.columns and hasattr(s, "map"):
+                    df[aesthetic] = s.map(df[aesthetic])
             layers_data.append(df)
         return ggplot.Built(plot=self, layers_data=layers_data)
 

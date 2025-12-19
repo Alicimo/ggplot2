@@ -14,12 +14,28 @@ class GeomPoint(geom):
     def to_traces(self, df, *, plot):
         if "x" not in df.columns or "y" not in df.columns:
             return []
-        marker = {}
         if "color" in df.columns:
-            marker["color"] = df["color"]
+            traces = []
+            for key, sub in df.groupby("color", dropna=False, sort=False):
+                marker = {"color": key}
+                if "size" in sub.columns:
+                    marker["size"] = sub["size"]
+                # Prefer original discrete label if present.
+                name = sub["colour"].iloc[0] if "colour" in sub.columns and not sub.empty else key
+                traces.append(
+                    go.Scatter(
+                        x=sub["x"],
+                        y=sub["y"],
+                        mode="markers",
+                        marker=marker,
+                        name=str(name),
+                    )
+                )
+            return traces
+
+        marker = {}
         if "size" in df.columns:
             marker["size"] = df["size"]
-
         return [go.Scatter(x=df["x"], y=df["y"], mode="markers", marker=marker)]
 
 
