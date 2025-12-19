@@ -39,6 +39,7 @@ jobs:
               geom_line,
               geom_bar,
               geom_histogram,
+              geom_vline,
               labs,
               theme,
               theme_minimal,
@@ -96,6 +97,10 @@ jobs:
           p5 = ggplot(pd.DataFrame({'x': [1, 1, 2, 3, 3, 3]}), aes('x')) + geom_histogram(bins=3)
           fig5 = p5.draw()
           assert len(fig5.data) == 1
+
+          # geom_vline
+          fig7 = (ggplot(pd.DataFrame({'xintercept': [1, 2]}), aes(xintercept='xintercept')) + geom_vline()).draw()
+          assert len(fig7.layout.shapes) == 2
 
           with tempfile.TemporaryDirectory() as d:
               out = Path(d) / 'plot.png'
