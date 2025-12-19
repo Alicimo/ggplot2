@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from dataclasses import dataclass
 from typing import Any, Optional
 
 import pandas as pd
+import plotly.graph_objects as go
 
 from ._utils.data import as_data_frame
 from .exceptions import PlotAddError
@@ -44,3 +46,40 @@ class ggplot:
 
     def __radd__(self, other: Any) -> "ggplot":
         raise PlotAddError(f"Cannot add ggplot to {type(other)!r}")
+
+    @dataclass(frozen=True)
+    class Built:
+        plot: "ggplot"
+        layers_data: list[pd.DataFrame]
+
+    def build(self) -> "ggplot.Built":
+        plot_data = self.data
+        layers_data: list[pd.DataFrame] = []
+        for lyr in self.layers:
+            df = lyr.setup_data(plot_data)
+            df = lyr.resolve_mapping(df, plot_mapping=self.mapping)
+            df = lyr.stat.compute(df, mapping=dict(lyr.mapping))
+            df = lyr.position.adjust(df)
+            layers_data.append(df)
+        return ggplot.Built(plot=self, layers_data=layers_data)
+
+    def draw(self) -> go.Figure:
+        built = self.build()
+        fig = go.Figure()
+        for lyr, df in zip(self.layers, built.layers_data, strict=False):
+            geom = lyr.geom
+            to_traces = getattr(geom, "to_traces", None)
+            if callable(to_traces):
+                for trace in to_traces(df, plot=self):
+                    fig.add_trace(trace)
+
+        if title := self.labels.get("title"):
+            fig.update_layout(title=title)
+        if x := self.labels.get("x"):
+            fig.update_xaxes(title_text=x)
+        if y := self.labels.get("y"):
+            fig.update_yaxes(title_text=y)
+        return fig
+
+    def to_plotly(self) -> go.Figure:
+        return self.draw()
