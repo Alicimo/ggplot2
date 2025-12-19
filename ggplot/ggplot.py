@@ -128,6 +128,11 @@ class ggplot:
                     for trace in to_traces(df, plot=self):
                         fig.add_trace(trace, row=row, col=col)
 
+        # Coordinate system (v0: coord_flip only)
+        if self.coord.__class__.__name__ in {"CoordFlip"}:
+            fig.update_layout(xaxis=dict(title=self.labels.get("y")), yaxis=dict(title=self.labels.get("x")))
+            fig.update_layout(yaxis=dict(autorange="reversed"))
+
         if title := self.labels.get("title"):
             fig.update_layout(title=title)
         if x := self.labels.get("x"):

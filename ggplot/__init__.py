@@ -34,11 +34,13 @@ from .scales.scale_discrete import (
     scale_fill_manual,
 )
 from .facets.facet_wrap import facet_wrap
+from .facets.facet_grid import facet_grid
 from .themes.theme import theme
 from .themes.theme_defaults import theme_minimal
 from .positions.position_stack import position_stack
 from .positions.position_dodge import position_dodge
 from .coords.coord_cartesian import coord_cartesian
+from .coords.coord_flip import coord_flip
 
 __all__ = [
     "ggplot",
@@ -50,6 +52,7 @@ __all__ = [
     "position_stack",
     "position_dodge",
     "coord_cartesian",
+    "coord_flip",
     "geom_point",
     "geom_line",
     "geom_bar",
@@ -76,4 +79,5 @@ __all__ = [
     "scale_colour_manual",
     "scale_fill_manual",
     "facet_wrap",
+    "facet_grid",
 ]
