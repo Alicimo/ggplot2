@@ -18,6 +18,8 @@ from .geom_tile import geom_tile
 from .geom_polygon import geom_polygon
 from .geom_hline import geom_hline
 from .geom_abline import geom_abline
+from .geom_linerange import geom_linerange
+from .geom_errorbar import geom_errorbar
 
 __all__ = [
     "geom",
@@ -40,4 +42,6 @@ __all__ = [
     "geom_polygon",
     "geom_hline",
     "geom_abline",
+    "geom_linerange",
+    "geom_errorbar",
 ]

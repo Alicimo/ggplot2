@@ -24,6 +24,8 @@ from .geoms.geom_tile import geom_tile
 from .geoms.geom_polygon import geom_polygon
 from .geoms.geom_hline import geom_hline
 from .geoms.geom_abline import geom_abline
+from .geoms.geom_linerange import geom_linerange
+from .geoms.geom_errorbar import geom_errorbar
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -78,6 +80,8 @@ __all__ = [
     "geom_polygon",
     "geom_hline",
     "geom_abline",
+    "geom_linerange",
+    "geom_errorbar",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
