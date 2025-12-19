@@ -11,6 +11,7 @@ from .geom_rect import geom_rect
 from .geom_ribbon import geom_ribbon
 from .geom_area import geom_area
 from .geom_vline import geom_vline
+from .geom_boxplot import geom_boxplot
 
 __all__ = [
     "geom",
@@ -26,4 +27,5 @@ __all__ = [
     "geom_ribbon",
     "geom_area",
     "geom_vline",
+    "geom_boxplot",
 ]

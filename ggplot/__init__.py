@@ -17,6 +17,7 @@ from .geoms.geom_rect import geom_rect
 from .geoms.geom_ribbon import geom_ribbon
 from .geoms.geom_area import geom_area
 from .geoms.geom_vline import geom_vline
+from .geoms.geom_boxplot import geom_boxplot
 from .ggsave import ggsave
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
@@ -56,6 +57,7 @@ __all__ = [
     "geom_ribbon",
     "geom_area",
     "geom_vline",
+    "geom_boxplot",
     "ggsave",
     "scale_x_continuous",
     "scale_y_continuous",
