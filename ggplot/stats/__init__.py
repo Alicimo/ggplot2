@@ -4,6 +4,7 @@ from .stat_boxplot import stat_boxplot
 from .stat_count import stat_count
 from .stat_density import stat_density
 from .stat_identity import stat_identity
+from .stat_quantile import stat_quantile
 from .stat_smooth import stat_smooth
 from .stat_summary import stat_summary
 from .stat_summary_range import stat_summary_range
@@ -16,6 +17,7 @@ __all__ = [
     "stat_boxplot",
     "stat_density",
     "stat_smooth",
+    "stat_quantile",
     "stat_summary",
     "stat_summary_range",
 ]
