@@ -17,9 +17,17 @@ class GeomText(geom):
         textfont = {}
         if "color" in df.columns:
             textfont["color"] = df["color"]
+        if "size" in df.columns:
+            textfont["size"] = df["size"]
+        opacity = float(df["alpha"].iloc[0]) if "alpha" in df.columns else None
         return [
             go.Scatter(
-                x=df["x"], y=df["y"], mode="text", text=df["label"], textfont=textfont
+                x=df["x"],
+                y=df["y"],
+                mode="text",
+                text=df["label"],
+                textfont=textfont,
+                opacity=opacity,
             )
         ]
 

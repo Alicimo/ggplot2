@@ -10,7 +10,10 @@ from ggplot import (
     scale_alpha_continuous,
     scale_color_continuous,
     scale_fill_gradient,
+    scale_size_area,
     scale_size_continuous,
+    scale_size_radius,
+    scale_stroke_continuous,
 )
 
 
@@ -54,6 +57,33 @@ def test_scale_size_continuous_maps_to_marker_size():
         + scale_size_continuous(range=(1.0, 9.0))
     ).draw()
     assert fig.data[0].marker.size is not None
+
+
+def test_scale_size_area_and_radius_return_marker_sizes():
+    df = pd.DataFrame({"x": [0, 1, 2], "y": [0, 1, 0], "s": [0.0, 0.5, 1.0]})
+    fig_area = (
+        ggplot(df, aes("x", "y", size="s"))
+        + geom_point()
+        + scale_size_area(max_size=9.0)
+    ).draw()
+    assert fig_area.data[0].marker.size is not None
+
+    fig_radius = (
+        ggplot(df, aes("x", "y", size="s"))
+        + geom_point()
+        + scale_size_radius(range=(1.0, 5.0))
+    ).draw()
+    assert fig_radius.data[0].marker.size is not None
+
+
+def test_scale_stroke_continuous_maps_to_marker_line_width():
+    df = pd.DataFrame({"x": [0, 1, 2], "y": [0, 1, 0], "w": [0.0, 0.5, 1.0]})
+    fig = (
+        ggplot(df, aes("x", "y", stroke="w"))
+        + geom_point()
+        + scale_stroke_continuous(range=(0.5, 2.0))
+    ).draw()
+    assert fig.data[0].marker.line.width is not None
 
 
 def test_alpha_applies_to_area_and_ribbon_opacity():

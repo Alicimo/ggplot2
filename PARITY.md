@@ -131,6 +131,7 @@ Notes:
 - Continuous `color`/`fill` scales now map to Plotly colorscales for `geom_point` and heatmap-like geoms (`geom_tile`, `geom_raster`).
 - `alpha` is now mapped to Plotly opacity for common geoms (`geom_point`, `geom_area`, `geom_ribbon`, `geom_density`, `geom_polygon`, `geom_pointdensity`).
 - `scale_alpha_continuous` and `scale_size_continuous` now map numeric columns into opacity/marker sizes.
+- `scale_size_area`, `scale_size_radius`, and `scale_stroke_continuous` now map numeric columns into marker sizes/outline widths.
 
 ### Implemented (9)
 - `scale_color_manual`

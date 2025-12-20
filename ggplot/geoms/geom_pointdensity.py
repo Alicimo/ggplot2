@@ -43,6 +43,8 @@ class GeomPointdensity(geom):
             marker["cmax"] = info["domain"][1]
         if "alpha" in df.columns:
             marker["opacity"] = df["alpha"]
+        if "stroke" in df.columns:
+            marker["line"] = {"width": df["stroke"]}
         return [go.Scatter(x=x, y=y, mode="markers", marker=marker, showlegend=False)]
 
 

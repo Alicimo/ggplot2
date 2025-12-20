@@ -92,7 +92,9 @@ def scale_size(*args: Any, **kwargs: Any):
 
 
 def scale_size_area(*args: Any, **kwargs: Any):
-    return scale_size()
+    from .scale_alpha_size import scale_size_area as _scale
+
+    return _scale(*args, **kwargs)
 
 
 def scale_size_continuous(*args: Any, **kwargs: Any):
@@ -122,7 +124,9 @@ def scale_size_ordinal(*args: Any, **kwargs: Any):
 
 
 def scale_size_radius(*args: Any, **kwargs: Any):
-    return scale_size()
+    from .scale_alpha_size import scale_size_radius as _scale
+
+    return _scale(*args, **kwargs)
 
 
 def scale_stroke(*args: Any, **kwargs: Any):
@@ -130,7 +134,9 @@ def scale_stroke(*args: Any, **kwargs: Any):
 
 
 def scale_stroke_continuous(*args: Any, **kwargs: Any):
-    return scale_stroke()
+    from .scale_alpha_size import scale_stroke_continuous as _scale
+
+    return _scale(*args, **kwargs)
 
 
 def scale_stroke_identity(*args: Any, **kwargs: Any):

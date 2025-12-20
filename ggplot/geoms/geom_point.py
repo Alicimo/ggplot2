@@ -31,6 +31,8 @@ class GeomPoint(geom):
                     marker["size"] = df["size"]
                 if "alpha" in df.columns:
                     marker["opacity"] = df["alpha"]
+                if "stroke" in df.columns:
+                    marker["line"] = {"width": df["stroke"]}
                 return [
                     go.Scatter(
                         x=df["x"],
@@ -48,6 +50,8 @@ class GeomPoint(geom):
                     marker["size"] = sub["size"]
                 if "alpha" in sub.columns:
                     marker["opacity"] = sub["alpha"]
+                if "stroke" in sub.columns:
+                    marker["line"] = {"width": sub["stroke"]}
                 # Prefer original discrete label if present.
                 name = (
                     sub["colour"].iloc[0]
@@ -70,6 +74,8 @@ class GeomPoint(geom):
             marker["size"] = df["size"]
         if "alpha" in df.columns:
             marker["opacity"] = df["alpha"]
+        if "stroke" in df.columns:
+            marker["line"] = {"width": df["stroke"]}
         return [go.Scatter(x=df["x"], y=df["y"], mode="markers", marker=marker)]
 
 
