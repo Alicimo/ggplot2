@@ -193,24 +193,21 @@ from .stats.addables import (
     stat_summary,
     stat_summary_range,
 )
-from .stats.compat import (
-    stat_bin2d,
-    stat_bin_2d,
-    stat_bindot,
-    stat_density_2d,
-    stat_ecdf,
-    stat_ellipse,
-    stat_function,
-    stat_hull,
-    stat_pointdensity,
-    stat_qq,
-    stat_qq_line,
-    stat_sina,
-    stat_sum,
-    stat_summary_bin,
-    stat_unique,
-    stat_ydensity,
-)
+from .stats.stat_bin_2d import stat_bin2d, stat_bin_2d
+from .stats.stat_bindot import stat_bindot
+from .stats.stat_density_2d import stat_density_2d
+from .stats.stat_ecdf import stat_ecdf
+from .stats.stat_ellipse import stat_ellipse
+from .stats.stat_function import stat_function
+from .stats.stat_hull import stat_hull
+from .stats.stat_pointdensity import stat_pointdensity
+from .stats.stat_qq import stat_qq
+from .stats.stat_qq_line import stat_qq_line
+from .stats.stat_sina import stat_sina
+from .stats.stat_sum import stat_sum
+from .stats.stat_summary_bin import stat_summary_bin
+from .stats.stat_unique import stat_unique
+from .stats.stat_ydensity import stat_ydensity
 from .themes.elements import element_blank, element_line, element_rect, element_text
 from .themes.theme import theme
 from .themes.theme_defaults import (

@@ -7,14 +7,15 @@ from ..exceptions import GGPlotError
 from .stat import stat
 
 
-class stat_smooth(stat):
+class StatSmooth(stat):
     """Minimal smoothing stat.
 
     v0 implementation: simple linear regression fit producing yhat over sorted x.
     """
 
-    def __init__(self, n: int = 80):
+    def __init__(self, n: int = 80, method: str = "linear"):
         self.n = n
+        self.method = method
 
     def compute(self, df: pd.DataFrame, *, mapping):
         if "x" not in df.columns or "y" not in df.columns:
@@ -31,7 +32,9 @@ class stat_smooth(stat):
         x = x[order]
         y = y[order]
 
-        # Linear fit
+        # v0: only linear fit.
+        if self.method not in {"linear"}:
+            raise GGPlotError(f"Unsupported smoothing method: {self.method!r}")
         A = np.vstack([x, np.ones_like(x)]).T
         coef, _, _, _ = np.linalg.lstsq(A, y, rcond=None)
         slope, intercept = float(coef[0]), float(coef[1])
@@ -40,3 +43,7 @@ class stat_smooth(stat):
         ys = slope * xs + intercept
         out = pd.DataFrame({"x": xs, "y": ys})
         return out
+
+
+def stat_smooth(*, method: str = "linear") -> StatSmooth:
+    return StatSmooth(method=method)

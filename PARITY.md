@@ -75,6 +75,11 @@ Scope of this document:
 
 ## Stats
 
+Notes:
+
+- The following stats are now implemented with real computations (not passthrough stubs).
+- Some are still minimal vs plotnine (e.g. `stat_density_2d`, `stat_smooth`, `stat_quantile`).
+
 ### Implemented (24)
 - `stat_bin`
 - `stat_bin2d`
