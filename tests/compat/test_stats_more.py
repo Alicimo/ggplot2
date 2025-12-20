@@ -8,6 +8,7 @@ from ggplot import (
     geom_point,
     ggplot,
     stat_bin2d,
+    stat_density_2d,
     stat_ecdf,
     stat_hull,
     stat_qq,
@@ -16,6 +17,13 @@ from ggplot import (
     stat_smooth,
     stat_sum,
 )
+
+
+def test_stat_density_2d_outputs_groups():
+    df = pd.DataFrame({"x": [0, 0, 1, 1, 0.5], "y": [0, 1, 0, 1, 0.5]})
+    out = stat_density_2d(n=25, levels=2).compute(df, mapping={})
+    assert {"x", "y", "group"}.issubset(out.columns)
+    assert out["group"].nunique() >= 1
 
 
 def test_stat_ecdf_outputs_monotone_y():

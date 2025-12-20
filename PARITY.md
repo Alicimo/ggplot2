@@ -78,7 +78,7 @@ Scope of this document:
 Notes:
 
 - The following stats are now implemented with real computations (not passthrough stubs).
-- Some are still minimal vs plotnine (e.g. `stat_density_2d`, `stat_smooth`, `stat_quantile`).
+- Some are still minimal vs plotnine (e.g. `stat_density_2d` contour extraction, `stat_smooth` lowess/loess implementation, `stat_quantile` IRLS solver).
 
 ### Implemented (24)
 - `stat_bin`
