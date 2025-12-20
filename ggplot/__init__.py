@@ -57,6 +57,7 @@ from .geoms.geom_violin import geom_violin
 from .geoms.geom_vline import geom_vline
 from .ggplot import ggplot
 from .ggsave import ggsave
+from .limits import expand_limits, lims, xlim, ylim
 from .mapping.aes import aes
 from .mapping.evaluation import after_stat
 from .positions.position_dodge import position_dodge
@@ -76,6 +77,7 @@ from .scales.scale_xy_discrete import scale_x_discrete, scale_y_discrete
 from .stats.addables import stat_summary, stat_summary_range
 from .themes.theme import theme
 from .themes.theme_defaults import theme_minimal
+from .title import ggtitle, xlab, ylab
 
 __all__ = [
     "ggplot",
@@ -142,6 +144,13 @@ __all__ = [
     "ggsave",
     "qplot",
     "Compose",
+    "expand_limits",
+    "lims",
+    "xlim",
+    "ylim",
+    "ggtitle",
+    "xlab",
+    "ylab",
     "scale_x_continuous",
     "scale_y_continuous",
     "scale_x_discrete",
