@@ -28,9 +28,19 @@ class GeomRaster(geom):
         pivot = df.pivot_table(index="y", columns="x", values=zcol, aggfunc="first")
         pivot = pivot.reindex(index=yvals, columns=xvals)
 
-        return [
-            go.Heatmap(x=pivot.columns.tolist(), y=pivot.index.tolist(), z=pivot.values)
-        ]
+        trace = go.Heatmap(
+            x=pivot.columns.tolist(), y=pivot.index.tolist(), z=pivot.values
+        )
+        if hasattr(plot, "_continuous_scales"):
+            info = plot._continuous_scales.get("fill")
+            if info is not None:
+                trace.update(
+                    colorscale=info.get("palette") or "Viridis",
+                    zmin=info["domain"][0],
+                    zmax=info["domain"][1],
+                    showscale=True,
+                )
+        return [trace]
 
 
 def geom_raster(

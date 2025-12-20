@@ -71,6 +71,10 @@ class ggplot:
     def build(self) -> ggplot.Built:
         plot_data = self.data
         layers_data: list[pd.DataFrame] = []
+
+        # Per-build continuous scale training (color/fill, etc.).
+        self._continuous_scales: dict[str, dict[str, Any]] = {}
+
         for lyr in self.layers:
             df = lyr.setup_data(plot_data)
             df = lyr.resolve_mapping(df, plot_mapping=self.mapping)
@@ -103,6 +107,19 @@ class ggplot:
                 aesthetic = getattr(s, "aesthetic", None)
                 if aesthetic in df.columns and hasattr(s, "map"):
                     df[aesthetic] = s.map(df[aesthetic])
+
+            # Train continuous scales for this layer.
+            for s in getattr(self, "scales", []):
+                aesthetic = getattr(s, "aesthetic", None)
+                if (
+                    aesthetic in df.columns
+                    and hasattr(s, "train")
+                    and hasattr(s, "palette")
+                ):
+                    self._continuous_scales[aesthetic] = {
+                        "domain": s.train(df[aesthetic]),
+                        "palette": getattr(s, "palette", None),
+                    }
 
             layers_data.append(df)
         return ggplot.Built(plot=self, layers_data=layers_data)

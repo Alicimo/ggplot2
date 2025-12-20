@@ -15,6 +15,36 @@ class GeomPoint(geom):
         if "x" not in df.columns or "y" not in df.columns:
             return []
         if "color" in df.columns:
+            # Continuous color mapping: single trace with colorscale.
+            try:
+                import numpy as np
+
+                col = np.asarray(df["color"], dtype=float)
+                if np.isfinite(col).any() and hasattr(plot, "_continuous_scales"):
+                    info = plot._continuous_scales.get("color")
+                    if info is not None:
+                        marker = {
+                            "color": col,
+                            "colorscale": info.get("palette") or "Viridis",
+                            "cmin": info["domain"][0],
+                            "cmax": info["domain"][1],
+                            "showscale": True,
+                        }
+                        if "size" in df.columns:
+                            marker["size"] = df["size"]
+                        return [
+                            go.Scatter(
+                                x=df["x"],
+                                y=df["y"],
+                                mode="markers",
+                                marker=marker,
+                                showlegend=False,
+                            )
+                        ]
+            except Exception:
+                # Fall back to discrete handling.
+                pass
+
             traces = []
             for key, sub in df.groupby("color", dropna=False, sort=False):
                 marker = {"color": key}

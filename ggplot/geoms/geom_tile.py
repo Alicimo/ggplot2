@@ -25,7 +25,17 @@ class GeomTile(geom):
             mat = df.pivot_table(index="y", columns="x", values="fill", aggfunc="first")
         except Exception:
             return []
-        return [go.Heatmap(x=mat.columns.tolist(), y=mat.index.tolist(), z=mat.values)]
+        trace = go.Heatmap(x=mat.columns.tolist(), y=mat.index.tolist(), z=mat.values)
+        if hasattr(plot, "_continuous_scales"):
+            info = plot._continuous_scales.get("fill")
+            if info is not None:
+                trace.update(
+                    colorscale=info.get("palette") or "Viridis",
+                    zmin=info["domain"][0],
+                    zmax=info["domain"][1],
+                    showscale=True,
+                )
+        return [trace]
 
 
 def geom_tile(
