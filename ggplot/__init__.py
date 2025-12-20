@@ -15,25 +15,42 @@ from .facets.facet_wrap import facet_wrap
 from .geoms.geom_abline import geom_abline
 from .geoms.geom_area import geom_area
 from .geoms.geom_bar import geom_bar
+from .geoms.geom_bin_2d import geom_bin2d, geom_bin_2d
+from .geoms.geom_blank import geom_blank
 from .geoms.geom_boxplot import geom_boxplot
 from .geoms.geom_col import geom_col
+from .geoms.geom_count import geom_count
+from .geoms.geom_crossbar import geom_crossbar
 from .geoms.geom_density import geom_density
+from .geoms.geom_density_2d import geom_density_2d
 from .geoms.geom_dotplot import geom_dotplot
 from .geoms.geom_errorbar import geom_errorbar
+from .geoms.geom_errorbarh import geom_errorbarh
+from .geoms.geom_freqpoly import geom_freqpoly
 from .geoms.geom_histogram import geom_histogram
 from .geoms.geom_hline import geom_hline
 from .geoms.geom_jitter import geom_jitter
+from .geoms.geom_label import geom_label
 from .geoms.geom_line import geom_line
 from .geoms.geom_linerange import geom_linerange
+from .geoms.geom_map import geom_map
 from .geoms.geom_path import geom_path
 from .geoms.geom_point import geom_point
+from .geoms.geom_pointdensity import geom_pointdensity
 from .geoms.geom_pointrange import geom_pointrange
 from .geoms.geom_polygon import geom_polygon
+from .geoms.geom_qq import geom_qq
+from .geoms.geom_qq_line import geom_qq_line
+from .geoms.geom_quantile import geom_quantile
+from .geoms.geom_raster import geom_raster
 from .geoms.geom_rect import geom_rect
 from .geoms.geom_ribbon import geom_ribbon
 from .geoms.geom_rug import geom_rug
 from .geoms.geom_segment import geom_segment
+from .geoms.geom_sina import geom_sina
 from .geoms.geom_smooth import geom_smooth
+from .geoms.geom_spoke import geom_spoke
+from .geoms.geom_step import geom_step
 from .geoms.geom_text import geom_text
 from .geoms.geom_tile import geom_tile
 from .geoms.geom_violin import geom_violin
@@ -104,6 +121,24 @@ __all__ = [
     "geom_rug",
     "geom_dotplot",
     "geom_jitter",
+    "geom_blank",
+    "geom_bin2d",
+    "geom_bin_2d",
+    "geom_count",
+    "geom_crossbar",
+    "geom_density_2d",
+    "geom_errorbarh",
+    "geom_freqpoly",
+    "geom_label",
+    "geom_map",
+    "geom_pointdensity",
+    "geom_qq",
+    "geom_qq_line",
+    "geom_quantile",
+    "geom_raster",
+    "geom_sina",
+    "geom_spoke",
+    "geom_step",
     "ggsave",
     "qplot",
     "Compose",
