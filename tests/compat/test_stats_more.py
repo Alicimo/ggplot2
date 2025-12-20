@@ -13,6 +13,7 @@ from ggplot import (
     stat_qq,
     stat_qq_line,
     stat_quantile,
+    stat_smooth,
     stat_sum,
 )
 
@@ -65,3 +66,10 @@ def test_stat_quantile_produces_multiple_quantiles():
     out = stat_quantile(quantiles=(0.25, 0.75), n=10).compute(df, mapping={})
     assert {"x", "y", "quantile"}.issubset(out.columns)
     assert set(out["quantile"].unique()) == {0.25, 0.75}
+
+
+def test_stat_smooth_supports_lowess():
+    df = pd.DataFrame({"x": [0, 1, 2, 3, 4], "y": [0, 1, 0, 1, 0]})
+    out = stat_smooth(method="lowess").compute(df, mapping={})
+    assert {"x", "y"}.issubset(out.columns)
+    assert len(out) > 10
