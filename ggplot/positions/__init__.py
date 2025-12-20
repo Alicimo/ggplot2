@@ -1,5 +1,7 @@
 from .position import position
 from .position_dodge import position_dodge
+from .position_dodge2 import position_dodge2
+from .position_fill import position_fill
 from .position_identity import position_identity
 from .position_jitter import position_jitter
 from .position_jitterdodge import position_jitterdodge
@@ -11,6 +13,8 @@ __all__ = [
     "position_identity",
     "position_stack",
     "position_dodge",
+    "position_dodge2",
+    "position_fill",
     "position_jitter",
     "position_nudge",
     "position_jitterdodge",

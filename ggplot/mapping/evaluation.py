@@ -16,6 +16,11 @@ class after_stat:
     expr: str
 
 
+@dataclass(frozen=True)
+class after_scale:
+    expr: str
+
+
 def _safe_eval_expr(expr: str, df: pd.DataFrame, env: Mapping[str, Any]) -> Any:
     """Evaluate a restricted python expression against a dataframe.
 
