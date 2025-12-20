@@ -2,7 +2,9 @@ import pandas as pd
 
 from ggplot import (
     aes,
+    geom_area,
     geom_point,
+    geom_ribbon,
     geom_tile,
     ggplot,
     scale_color_continuous,
@@ -30,3 +32,23 @@ def test_scale_fill_gradient_applies_to_tile_heatmap():
     assert len(fig.data) == 1
     assert fig.data[0].type == "heatmap"
     assert fig.data[0].showscale is True
+
+
+def test_alpha_applies_to_point_marker_opacity():
+    df = pd.DataFrame({"x": [0, 1], "y": [0, 1], "alpha": [0.2, 0.8]})
+    fig = (ggplot(df, aes("x", "y", alpha="alpha")) + geom_point()).draw()
+    assert fig.data[0].marker.opacity is not None
+
+
+def test_alpha_applies_to_area_and_ribbon_opacity():
+    df = pd.DataFrame({"x": [0, 1, 2], "y": [0, 1, 0], "alpha": [0.3, 0.3, 0.3]})
+    fig = (ggplot(df, aes("x", "y", alpha="alpha")) + geom_area()).draw()
+    assert fig.data[0].opacity == 0.3
+
+    df2 = pd.DataFrame(
+        {"x": [0, 1, 2], "ymin": [0, 0, 0], "ymax": [1, 2, 1], "alpha": [0.4, 0.4, 0.4]}
+    )
+    fig2 = (
+        ggplot(df2, aes("x", ymin="ymin", ymax="ymax", alpha="alpha")) + geom_ribbon()
+    ).draw()
+    assert fig2.data[0].opacity == 0.4

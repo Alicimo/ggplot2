@@ -6,6 +6,7 @@ from typing import Any
 import numpy as np
 import plotly.graph_objects as go
 
+from .._utils.scales import continuous_scale_info
 from ..mapping.aes import aes
 from .geom import geom
 
@@ -35,6 +36,13 @@ class GeomPointdensity(geom):
             dens[np.isinf(dens)] = 0.0
 
         marker = {"color": dens, "colorscale": "Viridis", "showscale": True}
+        info = continuous_scale_info(plot, "color")
+        if info is not None:
+            marker["colorscale"] = info.get("palette") or "Viridis"
+            marker["cmin"] = info["domain"][0]
+            marker["cmax"] = info["domain"][1]
+        if "alpha" in df.columns:
+            marker["opacity"] = df["alpha"]
         return [go.Scatter(x=x, y=y, mode="markers", marker=marker, showlegend=False)]
 
 

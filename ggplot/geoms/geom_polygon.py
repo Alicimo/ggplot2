@@ -5,6 +5,7 @@ from typing import Any
 
 import plotly.graph_objects as go
 
+from .._utils.scales import continuous_scale_info, try_as_numeric
 from ..mapping.aes import aes
 from .geom import geom
 
@@ -18,7 +19,14 @@ class GeomPolygon(geom):
         group_col = "group" if "group" in df.columns else None
         fillcolor = None
         if "fill" in df.columns and not df.empty:
-            fillcolor = df["fill"].iloc[0]
+            info = continuous_scale_info(plot, "fill")
+            f = try_as_numeric(df["fill"])
+            if info is not None and f is not None:
+                # Use the first value to pick a representative color.
+                # Plotly doesn't support per-vertex fill gradients.
+                fillcolor = float(f[0])
+            else:
+                fillcolor = df["fill"].iloc[0]
 
         if group_col is None:
             return [
@@ -28,6 +36,9 @@ class GeomPolygon(geom):
                     mode="lines",
                     fill="toself",
                     fillcolor=fillcolor,
+                    opacity=float(df["alpha"].iloc[0])
+                    if "alpha" in df.columns
+                    else None,
                 )
             ]
 
@@ -46,6 +57,9 @@ class GeomPolygon(geom):
                     fill="toself",
                     fillcolor=fc,
                     name=str(key),
+                    opacity=float(sub["alpha"].iloc[0])
+                    if "alpha" in sub.columns
+                    else None,
                 )
             )
         return traces

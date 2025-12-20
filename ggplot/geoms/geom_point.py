@@ -5,6 +5,7 @@ from typing import Any
 
 import plotly.graph_objects as go
 
+from .._utils.scales import continuous_scale_info, try_as_numeric
 from ..mapping.aes import aes
 from .geom import geom
 
@@ -16,40 +17,37 @@ class GeomPoint(geom):
             return []
         if "color" in df.columns:
             # Continuous color mapping: single trace with colorscale.
-            try:
-                import numpy as np
-
-                col = np.asarray(df["color"], dtype=float)
-                if np.isfinite(col).any() and hasattr(plot, "_continuous_scales"):
-                    info = plot._continuous_scales.get("color")
-                    if info is not None:
-                        marker = {
-                            "color": col,
-                            "colorscale": info.get("palette") or "Viridis",
-                            "cmin": info["domain"][0],
-                            "cmax": info["domain"][1],
-                            "showscale": True,
-                        }
-                        if "size" in df.columns:
-                            marker["size"] = df["size"]
-                        return [
-                            go.Scatter(
-                                x=df["x"],
-                                y=df["y"],
-                                mode="markers",
-                                marker=marker,
-                                showlegend=False,
-                            )
-                        ]
-            except Exception:
-                # Fall back to discrete handling.
-                pass
+            info = continuous_scale_info(plot, "color")
+            col = try_as_numeric(df["color"])
+            if info is not None and col is not None:
+                marker = {
+                    "color": col,
+                    "colorscale": info.get("palette") or "Viridis",
+                    "cmin": info["domain"][0],
+                    "cmax": info["domain"][1],
+                    "showscale": True,
+                }
+                if "size" in df.columns:
+                    marker["size"] = df["size"]
+                if "alpha" in df.columns:
+                    marker["opacity"] = df["alpha"]
+                return [
+                    go.Scatter(
+                        x=df["x"],
+                        y=df["y"],
+                        mode="markers",
+                        marker=marker,
+                        showlegend=False,
+                    )
+                ]
 
             traces = []
             for key, sub in df.groupby("color", dropna=False, sort=False):
                 marker = {"color": key}
                 if "size" in sub.columns:
                     marker["size"] = sub["size"]
+                if "alpha" in sub.columns:
+                    marker["opacity"] = sub["alpha"]
                 # Prefer original discrete label if present.
                 name = (
                     sub["colour"].iloc[0]
@@ -70,6 +68,8 @@ class GeomPoint(geom):
         marker = {}
         if "size" in df.columns:
             marker["size"] = df["size"]
+        if "alpha" in df.columns:
+            marker["opacity"] = df["alpha"]
         return [go.Scatter(x=df["x"], y=df["y"], mode="markers", marker=marker)]
 
 

@@ -5,6 +5,7 @@ from typing import Any
 
 import plotly.graph_objects as go
 
+from .._utils.scales import continuous_scale_info, try_as_numeric
 from ..mapping.aes import aes
 from ..stats.stat_density import stat_density
 from .geom import geom
@@ -24,7 +25,22 @@ class GeomDensity(geom):
         # Map to x/y for plotting
         x = df["y"]
         y = df["density"]
-        return [go.Scatter(x=x, y=y, mode="lines", showlegend=False)]
+        line = {}
+        if "color" in df.columns:
+            info = continuous_scale_info(plot, "color")
+            c = try_as_numeric(df["color"])
+            if info is None or c is None:
+                line["color"] = df["color"].iloc[0]
+        return [
+            go.Scatter(
+                x=x,
+                y=y,
+                mode="lines",
+                line=line,
+                opacity=float(df["alpha"].iloc[0]) if "alpha" in df.columns else None,
+                showlegend=False,
+            )
+        ]
 
 
 def geom_density(

@@ -121,6 +121,15 @@ class ggplot:
                         "palette": getattr(s, "palette", None),
                     }
 
+            # Apply alpha scale as direct opacity mapping when requested.
+            if "alpha" in df.columns and hasattr(self, "_continuous_scales"):
+                # No scale object yet; treat alpha as already numeric.
+                try:
+                    a = pd.to_numeric(df["alpha"], errors="coerce")
+                    df["alpha"] = a
+                except Exception:
+                    pass
+
             layers_data.append(df)
         return ggplot.Built(plot=self, layers_data=layers_data)
 

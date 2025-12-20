@@ -5,6 +5,7 @@ from typing import Any
 
 import plotly.graph_objects as go
 
+from .._utils.scales import continuous_scale_info, try_as_numeric
 from ..mapping.aes import aes
 from .geom import geom
 
@@ -19,11 +20,11 @@ class GeomRibbon(geom):
         df = df.sort_values("x", kind="stable")
         x = list(df["x"]) + list(reversed(df["x"]))
         y = list(df["ymax"]) + list(reversed(df["ymin"]))
-        fillcolor = (
-            df["fill"].iloc[0]
-            if "fill" in df.columns and not df.empty
-            else "rgba(0,0,0,0.2)"
-        )
+        fillcolor = "rgba(0,0,0,0.2)"
+        if "fill" in df.columns and not df.empty:
+            info = continuous_scale_info(plot, "fill")
+            f = try_as_numeric(df["fill"])
+            fillcolor = df["fill"].iloc[0] if info is None or f is None else float(f[0])
         linecolor = (
             df["color"].iloc[0]
             if "color" in df.columns and not df.empty
@@ -37,6 +38,7 @@ class GeomRibbon(geom):
                 fill="toself",
                 fillcolor=fillcolor,
                 line={"color": linecolor},
+                opacity=float(df["alpha"].iloc[0]) if "alpha" in df.columns else None,
                 showlegend=False,
             )
         ]
