@@ -12,6 +12,7 @@ from ggplot import (
     stat_hull,
     stat_qq,
     stat_qq_line,
+    stat_quantile,
     stat_sum,
 )
 
@@ -57,3 +58,10 @@ def test_stat_hull_can_drive_geom_line():
     hull = stat_hull().compute(df, mapping={})
     fig = (ggplot(hull, aes("x", "y")) + geom_line() + geom_point()).draw()
     assert len(fig.data) == 2
+
+
+def test_stat_quantile_produces_multiple_quantiles():
+    df = pd.DataFrame({"x": [0, 1, 2, 3], "y": [0, 0, 10, 10]})
+    out = stat_quantile(quantiles=(0.25, 0.75), n=10).compute(df, mapping={})
+    assert {"x", "y", "quantile"}.issubset(out.columns)
+    assert set(out["quantile"].unique()) == {0.25, 0.75}
