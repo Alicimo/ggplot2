@@ -102,10 +102,15 @@ class ggplot:
                 if hasattr(s, "apply") and getattr(s, "aesthetic", None) in df.columns:
                     df[s.aesthetic] = s.apply(df[s.aesthetic])
 
-            # Apply discrete scales (e.g. scale_color_manual)
+            # Apply discrete scales (e.g. scale_color_manual).
+            # Continuous scales are applied later, since they require a trained domain.
             for s in getattr(self, "scales", []):
                 aesthetic = getattr(s, "aesthetic", None)
-                if aesthetic in df.columns and hasattr(s, "map"):
+                if (
+                    aesthetic in df.columns
+                    and hasattr(s, "map")
+                    and not hasattr(s, "train")
+                ):
                     df[aesthetic] = s.map(df[aesthetic])
 
             # Train continuous scales for this layer.
@@ -121,14 +126,20 @@ class ggplot:
                         "palette": getattr(s, "palette", None),
                     }
 
-            # Apply alpha scale as direct opacity mapping when requested.
-            if "alpha" in df.columns and hasattr(self, "_continuous_scales"):
-                # No scale object yet; treat alpha as already numeric.
-                try:
-                    a = pd.to_numeric(df["alpha"], errors="coerce")
-                    df["alpha"] = a
-                except Exception:
-                    pass
+            # Apply continuous non-color scales (alpha/size) to mapped numeric values.
+            for s in getattr(self, "scales", []):
+                aesthetic = getattr(s, "aesthetic", None)
+                if (
+                    aesthetic in df.columns
+                    and hasattr(s, "train")
+                    and hasattr(s, "map")
+                ):
+                    # Skip discrete scales (they map categorical to categorical) and
+                    # skip color/fill continuous scales (geoms handle those).
+                    if aesthetic in {"color", "fill"}:
+                        continue
+                    domain = s.train(df[aesthetic])
+                    df[aesthetic] = s.map(df[aesthetic], domain=domain)
 
             layers_data.append(df)
         return ggplot.Built(plot=self, layers_data=layers_data)

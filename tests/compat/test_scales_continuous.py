@@ -7,8 +7,10 @@ from ggplot import (
     geom_ribbon,
     geom_tile,
     ggplot,
+    scale_alpha_continuous,
     scale_color_continuous,
     scale_fill_gradient,
+    scale_size_continuous,
 )
 
 
@@ -36,8 +38,22 @@ def test_scale_fill_gradient_applies_to_tile_heatmap():
 
 def test_alpha_applies_to_point_marker_opacity():
     df = pd.DataFrame({"x": [0, 1], "y": [0, 1], "alpha": [0.2, 0.8]})
-    fig = (ggplot(df, aes("x", "y", alpha="alpha")) + geom_point()).draw()
+    fig = (
+        ggplot(df, aes("x", "y", alpha="alpha"))
+        + geom_point()
+        + scale_alpha_continuous(range=(0.0, 1.0))
+    ).draw()
     assert fig.data[0].marker.opacity is not None
+
+
+def test_scale_size_continuous_maps_to_marker_size():
+    df = pd.DataFrame({"x": [0, 1, 2], "y": [0, 1, 0], "s": [0.0, 0.5, 1.0]})
+    fig = (
+        ggplot(df, aes("x", "y", size="s"))
+        + geom_point()
+        + scale_size_continuous(range=(1.0, 9.0))
+    ).draw()
+    assert fig.data[0].marker.size is not None
 
 
 def test_alpha_applies_to_area_and_ribbon_opacity():

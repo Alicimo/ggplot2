@@ -22,7 +22,9 @@ def scale_alpha(*args: Any, **kwargs: Any):
 
 
 def scale_alpha_continuous(*args: Any, **kwargs: Any):
-    return scale_alpha()
+    from .scale_alpha_size import scale_alpha_continuous as _scale
+
+    return _scale(*args, **kwargs)
 
 
 def scale_alpha_datetime(*args: Any, **kwargs: Any):
@@ -94,7 +96,9 @@ def scale_size_area(*args: Any, **kwargs: Any):
 
 
 def scale_size_continuous(*args: Any, **kwargs: Any):
-    return scale_size()
+    from .scale_alpha_size import scale_size_continuous as _scale
+
+    return _scale(*args, **kwargs)
 
 
 def scale_size_datetime(*args: Any, **kwargs: Any):
