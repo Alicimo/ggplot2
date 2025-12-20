@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
-
-import plotly.graph_objects as go
+from typing import Any
 
 from ..mapping.aes import aes
 from .geom import geom
@@ -37,9 +35,10 @@ class GeomRug(geom):
         return []
 
 
-def geom_rug(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomRug:
+def geom_rug(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomRug:
     mapping = mapping if mapping is not None else aes()
     g = GeomRug(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

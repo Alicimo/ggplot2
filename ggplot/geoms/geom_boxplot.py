@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -30,7 +30,13 @@ class GeomBoxplot(geom):
                 traces.append(
                     go.Scatter(
                         x=[x, x, x, x, x],
-                        y=[row["lower"], row["upper"], row["upper"], row["lower"], row["lower"]],
+                        y=[
+                            row["lower"],
+                            row["upper"],
+                            row["upper"],
+                            row["lower"],
+                            row["lower"],
+                        ],
                         mode="lines",
                         showlegend=False,
                     )
@@ -45,8 +51,22 @@ class GeomBoxplot(geom):
                     )
                 )
                 # whiskers
-                traces.append(go.Scatter(x=[x, x], y=[row["ymin"], row["lower"]], mode="lines", showlegend=False))
-                traces.append(go.Scatter(x=[x, x], y=[row["upper"], row["ymax"]], mode="lines", showlegend=False))
+                traces.append(
+                    go.Scatter(
+                        x=[x, x],
+                        y=[row["ymin"], row["lower"]],
+                        mode="lines",
+                        showlegend=False,
+                    )
+                )
+                traces.append(
+                    go.Scatter(
+                        x=[x, x],
+                        y=[row["upper"], row["ymax"]],
+                        mode="lines",
+                        showlegend=False,
+                    )
+                )
         else:
             row = df.iloc[0]
             traces.append(
@@ -62,10 +82,11 @@ class GeomBoxplot(geom):
         return traces
 
 
-def geom_boxplot(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomBoxplot:
+def geom_boxplot(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomBoxplot:
     mapping = mapping if mapping is not None else aes()
     g = GeomBoxplot(mapping=mapping, data=data)
     g.stat = stat_boxplot()
     g.params.update(kwargs)
     return g
-

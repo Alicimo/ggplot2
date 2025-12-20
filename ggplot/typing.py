@@ -15,6 +15,5 @@ class BuildResult(Protocol):
 
 @runtime_checkable
 class PlotAddable(Protocol):
-    def __radd__(self, other: "ggplot") -> "ggplot":  # noqa: F821
+    def __radd__(self, other: ggplot) -> ggplot:  # noqa: F821
         ...
-

@@ -31,9 +31,7 @@ class TestGetAestheticLimits:
             + geom_point()
             + facet_wrap("g", scales="free_x")
         )
-        limits = cast(
-            "list[tuple[float, float]]", get_aesthetic_limits(p, "x")
-        )
+        limits = cast("list[tuple[float, float]]", get_aesthetic_limits(p, "x"))
         npt.assert_array_almost_equal(limits[0], [0, 1])
         npt.assert_array_almost_equal(limits[1], [2, 4])
         npt.assert_array_almost_equal(limits[2], [5, 6])

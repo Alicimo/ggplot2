@@ -12,4 +12,3 @@ class CoordFlip(coord):
 
 def coord_flip():
     return CoordFlip()
-

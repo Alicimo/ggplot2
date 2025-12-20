@@ -14,5 +14,9 @@ class stat_count(stat):
         # If `fill` is present, count within each fill group too.
         if "fill" in df.columns:
             group_cols.append("fill")
-        out = df.groupby(group_cols, dropna=False, sort=False).size().reset_index(name="count")
+        out = (
+            df.groupby(group_cols, dropna=False, sort=False)
+            .size()
+            .reset_index(name="count")
+        )
         return out

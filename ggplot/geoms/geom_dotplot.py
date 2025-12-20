@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import numpy as np
 import plotly.graph_objects as go
@@ -21,9 +21,10 @@ class GeomDotplot(geom):
         return [go.Scatter(x=x, y=y, mode="markers", showlegend=False)]
 
 
-def geom_dotplot(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomDotplot:
+def geom_dotplot(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomDotplot:
     mapping = mapping if mapping is not None else aes()
     g = GeomDotplot(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

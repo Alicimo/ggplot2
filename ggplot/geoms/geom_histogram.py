@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -20,8 +20,8 @@ class GeomHistogram(geom):
 
 
 def geom_histogram(
-    mapping: Optional[aes] = None,
-    data: Optional[Any] = None,
+    mapping: aes | None = None,
+    data: Any | None = None,
     *,
     bins: int = 30,
     **kwargs: Any,
@@ -31,4 +31,3 @@ def geom_histogram(
     g.stat = stat_bin(bins=bins)
     g.params.update(kwargs)
     return g
-

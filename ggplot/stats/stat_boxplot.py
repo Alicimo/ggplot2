@@ -39,7 +39,9 @@ class stat_boxplot(stat):
 
         y = pd.to_numeric(df["y"], errors="coerce").dropna().to_numpy()
         if y.size == 0:
-            return pd.DataFrame({"ymin": [], "lower": [], "middle": [], "upper": [], "ymax": []})
+            return pd.DataFrame(
+                {"ymin": [], "lower": [], "middle": [], "upper": [], "ymax": []}
+            )
         q1, q2, q3 = np.quantile(y, [0.25, 0.5, 0.75])
         return pd.DataFrame(
             {
@@ -50,4 +52,3 @@ class stat_boxplot(stat):
                 "ymax": [float(np.max(y))],
             }
         )
-

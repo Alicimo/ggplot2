@@ -8,4 +8,3 @@ class MappingError(GGPlotError):
 
 class PlotAddError(GGPlotError):
     """Raised when an object cannot be added to a ggplot."""
-

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 from ..mapping.aes import aes
 from .geom import geom
@@ -33,9 +33,10 @@ class GeomHLine(geom):
         return []
 
 
-def geom_hline(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomHLine:
+def geom_hline(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomHLine:
     mapping = mapping if mapping is not None else aes()
     g = GeomHLine(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

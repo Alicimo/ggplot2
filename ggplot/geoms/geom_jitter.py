@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from ..mapping.aes import aes
 from ..positions.position_jitter import position_jitter
@@ -8,8 +8,8 @@ from .geom_point import geom_point
 
 
 def geom_jitter(
-    mapping: Optional[aes] = None,
-    data: Optional[Any] = None,
+    mapping: aes | None = None,
+    data: Any | None = None,
     *,
     width: float = 0.1,
     height: float = 0.1,
@@ -24,4 +24,3 @@ def geom_jitter(
         position=position_jitter(width=width, height=height, seed=seed),
         **kwargs,
     )
-

@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, Mapping, Optional
+from typing import Any
 
 import pandas as pd
 
@@ -16,7 +17,7 @@ class layer:
     stat: Any
     position: Any
     mapping: aes
-    data: Optional[Any] = None
+    data: Any | None = None
     inherit_aes: bool = True
     show_legend: bool | dict[str, bool] | None = None
 

@@ -1,10 +1,10 @@
 from .position import position
-from .position_identity import position_identity
-from .position_stack import position_stack
 from .position_dodge import position_dodge
+from .position_identity import position_identity
 from .position_jitter import position_jitter
-from .position_nudge import position_nudge
 from .position_jitterdodge import position_jitterdodge
+from .position_nudge import position_nudge
+from .position_stack import position_stack
 
 __all__ = [
     "position",

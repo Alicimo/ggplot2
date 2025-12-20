@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from typing import Callable, Literal
+from typing import Literal
 
 import numpy as np
 import pandas as pd
 
 from ..exceptions import GGPlotError
 from .stat import stat
-
 
 SummaryFun = Literal["mean", "median"]
 
@@ -30,6 +29,9 @@ class stat_summary(stat):
                 return float(np.median(v))
             raise GGPlotError(f"Unsupported summary fun: {self.fun!r}")
 
-        out = df.groupby("x", dropna=False, sort=False)["y"].apply(agg).reset_index(name="y")
+        out = (
+            df.groupby("x", dropna=False, sort=False)["y"]
+            .apply(agg)
+            .reset_index(name="y")
+        )
         return out
-

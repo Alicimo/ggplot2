@@ -33,13 +33,9 @@ def test_rect_aesthetics():
     p = (
         ggplot(data, aes(xmin="xmin", xmax="xmax", ymin="ymin", ymax="ymax"))
         + geom_rect()
-        + geom_rect(
-            aes(ymin="ymin+2", ymax="ymax+2", alpha="z"), show_legend=False
-        )
+        + geom_rect(aes(ymin="ymin+2", ymax="ymax+2", alpha="z"), show_legend=False)
         + geom_rect(aes(ymin="ymin+4", ymax="ymax+4", fill="factor(z)"))
-        + geom_rect(
-            aes(ymin="ymin+6", ymax="ymax+6", color="factor(z+1)"), size=2
-        )
+        + geom_rect(aes(ymin="ymin+6", ymax="ymax+6", color="factor(z+1)"), size=2)
         + geom_rect(
             aes(ymin="ymin+8", ymax="ymax+8", linetype="factor(z+2)"),
             color="yellow",
@@ -65,9 +61,7 @@ def test_rect_nofill():
             fill="none",
             size=2,
         )
-        + geom_rect(
-            aes(ymin="ymin+4", ymax="ymax+4"), color="green", fill="", size=2
-        )
+        + geom_rect(aes(ymin="ymin+4", ymax="ymax+4"), color="green", fill="", size=2)
         + geom_rect(
             aes(ymin="ymin+6", ymax="ymax+6"),
             color="yellow",
@@ -86,9 +80,7 @@ def test_tile_aesthetics():
         + geom_tile(aes(y="y+2", alpha="z"), show_legend=False)
         + geom_tile(aes(y="y+4", fill="factor(z)"))
         + geom_tile(aes(y="y+6", color="factor(z+1)"), size=2)
-        + geom_tile(
-            aes(y="y+8", linetype="factor(z+2)"), color="yellow", size=2
-        )
+        + geom_tile(aes(y="y+8", linetype="factor(z+2)"), color="yellow", size=2)
     )
 
     assert p == "tile-aesthetics"
@@ -158,9 +150,7 @@ def test_coord_trans_groups():
 
     p = (
         ggplot(data)
-        + geom_rect(
-            aes(xmin="xmin", xmax="xmax", ymin="ymin", ymax="ymax", fill="c")
-        )
+        + geom_rect(aes(xmin="xmin", xmax="xmax", ymin="ymin", ymax="ymax", fill="c"))
         + coord_trans()
     )
     assert p == "coord-trans-groups"

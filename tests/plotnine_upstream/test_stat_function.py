@@ -11,9 +11,7 @@ data = pd.DataFrame({"x": range(1, n + 1)})
 def test_limits():
     p = (
         ggplot(data, aes("x"))
-        + stat_function(
-            fun=np.cos, size=2, color="blue", arrow=arrow(ends="first")
-        )
+        + stat_function(fun=np.cos, size=2, color="blue", arrow=arrow(ends="first"))
         + stat_function(
             fun=np.cos,
             xlim=(10, 20),

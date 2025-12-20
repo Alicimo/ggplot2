@@ -9,4 +9,3 @@ import pandas as pd
 class position:
     def adjust(self, df: pd.DataFrame) -> pd.DataFrame:
         return df
-

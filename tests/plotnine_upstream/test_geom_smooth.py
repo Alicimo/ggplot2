@@ -29,14 +29,10 @@ y_noisy = y + 0.1 * random_state.randn(n)
 non_linear_data = pd.DataFrame({"x": x, "y": y, "y_noisy": y_noisy})
 
 # discrete_x
-discrete_data_x = pd.DataFrame(
-    {"x": range(10), "y": [1, 2, 3, 4, 4, 5, 6, 7, 8, 9]}
-)
+discrete_data_x = pd.DataFrame({"x": range(10), "y": [1, 2, 3, 4, 4, 5, 6, 7, 8, 9]})
 
 # continuous_x
-continuous_data_x = pd.DataFrame(
-    {"x": np.arange(1, 21) + 0.2, "y": range(1, 21)}
-)
+continuous_data_x = pd.DataFrame({"x": np.arange(1, 21) + 0.2, "y": range(1, 21)})
 
 # linear relationship, values greater than zero
 n = 10
@@ -60,9 +56,7 @@ def test_linear_smooth_no_ci():
     p = (
         ggplot(linear_data, aes("x"))
         + geom_point(aes(y="y_noisy"))
-        + geom_smooth(
-            aes(y="y_noisy"), method="lm", span=0.3, color="blue", se=False
-        )
+        + geom_smooth(aes(y="y_noisy"), method="lm", span=0.3, color="blue", se=False)
     )
 
     assert p == "linear_smooth_no_ci"
@@ -265,9 +259,7 @@ class TestFormula:
         p = (
             self.p
             + aes(weight="x.abs()")
-            + stat_smooth(
-                method="lm", formula="y ~ np.sin(x)", fill="red", se=True
-            )
+            + stat_smooth(method="lm", formula="y ~ np.sin(x)", fill="red", se=True)
         )
         assert p == "lm_formula_weights"
 

@@ -27,10 +27,7 @@ data = pd.DataFrame(
 
 
 def test_reorder():
-    p = (
-        ggplot(data, aes("reorder(x, y)", "y", fill="reorder(x, y)"))
-        + geom_col()
-    )
+    p = ggplot(data, aes("reorder(x, y)", "y", fill="reorder(x, y)")) + geom_col()
     assert p == "reorder"
 
 

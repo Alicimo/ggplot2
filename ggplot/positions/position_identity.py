@@ -8,4 +8,3 @@ from .position import position
 class position_identity(position):
     def adjust(self, df: pd.DataFrame) -> pd.DataFrame:
         return df
-

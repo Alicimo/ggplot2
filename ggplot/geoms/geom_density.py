@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -27,10 +27,11 @@ class GeomDensity(geom):
         return [go.Scatter(x=x, y=y, mode="lines", showlegend=False)]
 
 
-def geom_density(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomDensity:
+def geom_density(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomDensity:
     mapping = mapping if mapping is not None else aes()
     g = GeomDensity(mapping=mapping, data=data)
     g.stat = stat_density()
     g.params.update(kwargs)
     return g
-

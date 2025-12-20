@@ -34,14 +34,17 @@ class position_jitterdodge(position):
         # Jitter
         if "x" in out.columns:
             try:
-                out["x"] = out["x"].astype(float) + rng.uniform(-self.jitter_width, self.jitter_width, size=len(out))
+                out["x"] = out["x"].astype(float) + rng.uniform(
+                    -self.jitter_width, self.jitter_width, size=len(out)
+                )
             except Exception:
                 pass
         if "y" in out.columns and self.jitter_height:
             try:
-                out["y"] = out["y"].astype(float) + rng.uniform(-self.jitter_height, self.jitter_height, size=len(out))
+                out["y"] = out["y"].astype(float) + rng.uniform(
+                    -self.jitter_height, self.jitter_height, size=len(out)
+                )
             except Exception:
                 pass
 
         return out
-

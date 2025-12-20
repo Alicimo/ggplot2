@@ -32,9 +32,7 @@ def test_multiple_annotation_geoms():
             color="red",
             alpha=0.3,
         )
-        + annotate(
-            geom_segment, x=2.8, y=3.8, xend=3.2, yend=4.2, color="red", size=1
-        )
+        + annotate(geom_segment, x=2.8, y=3.8, xend=3.2, yend=4.2, color="red", size=1)
     )
     assert p == "multiple_annotation_geoms"
 

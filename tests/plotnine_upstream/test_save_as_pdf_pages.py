@@ -68,8 +68,7 @@ class TestArguments:
         assert_exist_and_clean(fn, "fn, plot and path")
 
     @pytest.mark.skip(
-        "Results of this test can only be confirmed by"
-        "inspecting the generated PDF."
+        "Results of this test can only be confirmed byinspecting the generated PDF."
     )
     def test_height_width(self):
         plots = []

@@ -19,9 +19,7 @@ def test_aesthetics():
         ggplot(data, aes("x", "y"))
         + geom_point()
         + geom_abline(aes(slope="slope", intercept="intercept"), size=2)
-        + geom_abline(
-            aes(slope="slope", intercept="intercept+.1", alpha="z"), size=2
-        )
+        + geom_abline(aes(slope="slope", intercept="intercept+.1", alpha="z"), size=2)
         + geom_abline(
             aes(slope="slope", intercept="intercept+.2", linetype="factor(z)"),
             size=2,

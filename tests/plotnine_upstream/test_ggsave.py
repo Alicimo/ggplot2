@@ -105,12 +105,7 @@ class TestArguments:
 
         data = pd.DataFrame({"x": range(4), "y": range(4), "b": list("aabb")})
 
-        p = (
-            ggplot(data)
-            + geom_point(aes("x", "y"))
-            + facet_wrap("b")
-            + theme_xkcd()
-        )
+        p = ggplot(data) + geom_point(aes("x", "y")) + facet_wrap("b") + theme_xkcd()
         p.save(fn1, verbose=False)
         assert_exist_and_clean(fn1, "Saving with theme_xkcd and dpi (1)")
 

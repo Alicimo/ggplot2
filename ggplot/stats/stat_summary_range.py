@@ -28,4 +28,3 @@ class stat_summary_range(stat):
             ymean, ymin, ymax = summarize(sub["y"])
             rows.append({"x": xval, "y": ymean, "ymin": ymin, "ymax": ymax})
         return pd.DataFrame(rows)
-

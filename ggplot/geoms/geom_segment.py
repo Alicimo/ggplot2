@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -31,9 +31,10 @@ class GeomSegment(geom):
         return [go.Scatter(x=x, y=y, mode="lines", line=line, showlegend=False)]
 
 
-def geom_segment(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomSegment:
+def geom_segment(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomSegment:
     mapping = mapping if mapping is not None else aes()
     g = GeomSegment(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

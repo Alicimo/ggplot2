@@ -12,4 +12,3 @@ class CoordFixed(coord):
 
 def coord_fixed(ratio: float = 1.0):
     return CoordFixed(ratio=ratio)
-

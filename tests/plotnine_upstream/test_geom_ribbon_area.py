@@ -86,11 +86,7 @@ def test_ribbon_facetting():
 def test_ribbon_coord_flip():
     data = pd.DataFrame({"x": [0, 1, 2, 3, 4, 5], "y": [0, 3, 5, 5, 3, 0]})
 
-    p = (
-        ggplot(data, aes("x"))
-        + geom_ribbon(aes(ymax="y"), ymin=0)
-        + coord_flip()
-    )
+    p = ggplot(data, aes("x")) + geom_ribbon(aes(ymax="y"), ymin=0) + coord_flip()
 
     assert p == "ribbon_coord_flip"
 
@@ -103,12 +99,8 @@ def test_ribbon_where():
 
     p = (
         ggplot(data, aes("x", "sin"))
-        + geom_ribbon(
-            aes(ymin=0, ymax="sin", where="sin>0"), fill="blue", alpha=0.2
-        )
-        + geom_ribbon(
-            aes(ymin=0, ymax="sin", where="sin<0"), fill="red", alpha=0.2
-        )
+        + geom_ribbon(aes(ymin=0, ymax="sin", where="sin>0"), fill="blue", alpha=0.2)
+        + geom_ribbon(aes(ymin=0, ymax="sin", where="sin<0"), fill="red", alpha=0.2)
         + geom_line()
     )
     assert p == "ribbon_where"

@@ -16,4 +16,3 @@ class theme:
             other.theme = {}
         other.theme.update(self.params)
         return other
-

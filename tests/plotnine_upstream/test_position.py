@@ -109,11 +109,7 @@ def test_stack_non_linear_scale():
         }
     )
 
-    p = (
-        ggplot(data, aes("x", "value", fill="cat"))
-        + geom_col()
-        + scale_y_log10()
-    )
+    p = ggplot(data, aes("x", "value", fill="cat")) + geom_col() + scale_y_log10()
 
     with pytest.warns(RuntimeWarning) as rec:
         assert p == "stack-non-linear-scale"
@@ -143,9 +139,7 @@ def test_dodge_preserve_single():
 
 
 def test_dodge_preserve_single_text():
-    data1 = pd.DataFrame(
-        {"x": ["a", "b", "b", "b"], "y": ["a", "a", "b", "b"]}
-    )
+    data1 = pd.DataFrame({"x": ["a", "b", "b", "b"], "y": ["a", "a", "b", "b"]})
 
     d = position_dodge(preserve="single", width=0.9)
     p = (
@@ -215,9 +209,9 @@ def test_dodge2_preserve_single_interval():
     n = 3
     data = pd.DataFrame({"x": range(1, n + 1), "y": range(1, n + 1)})
 
-    p = ggplot(
-        data, aes(xmin="x-.45", xmax="x+.45", ymin=0, ymax="y")
-    ) + geom_rect(position=position_dodge2(preserve="single"))
+    p = ggplot(data, aes(xmin="x-.45", xmax="x+.45", ymin=0, ymax="y")) + geom_rect(
+        position=position_dodge2(preserve="single")
+    )
     assert p == "dodge2_preserve_single_interval"
 
 

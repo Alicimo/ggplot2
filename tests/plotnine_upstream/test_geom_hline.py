@@ -3,9 +3,7 @@ import pytest
 from ggplot import aes, geom_hline, geom_point, ggplot
 from ggplot.exceptions import PlotnineError, PlotnineWarning
 
-data = pd.DataFrame(
-    {"yintercept": [1, 2], "x": [-1, 1], "y": [0.5, 3], "z": range(2)}
-)
+data = pd.DataFrame({"yintercept": [1, 2], "x": [-1, 1], "y": [0.5, 3], "z": range(2)})
 
 
 def test_aesthetics():
@@ -14,12 +12,8 @@ def test_aesthetics():
         + geom_point(aes("x", "y"))
         + geom_hline(aes(yintercept="yintercept"), size=2)
         + geom_hline(aes(yintercept="yintercept+.1", alpha="z"), size=2)
-        + geom_hline(
-            aes(yintercept="yintercept+.2", linetype="factor(z)"), size=2
-        )
-        + geom_hline(
-            aes(yintercept="yintercept+.3", color="factor(z)"), size=2
-        )
+        + geom_hline(aes(yintercept="yintercept+.2", linetype="factor(z)"), size=2)
+        + geom_hline(aes(yintercept="yintercept+.3", color="factor(z)"), size=2)
         + geom_hline(aes(yintercept="yintercept+.4", size="z"))
     )
 

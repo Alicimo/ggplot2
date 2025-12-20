@@ -16,17 +16,13 @@ def _random_grid(n, m=None, seed=123):
 
 def test_square():
     data = _random_grid(5)
-    p = ggplot(data, aes("x", "y", fill="g")) + geom_raster(
-        interpolation="bilinear"
-    )
+    p = ggplot(data, aes("x", "y", fill="g")) + geom_raster(interpolation="bilinear")
     assert p == "square"
 
 
 def test_rectangle():
     data = _random_grid(3, 5)
-    p = ggplot(data, aes("x", "y", fill="g")) + geom_raster(
-        interpolation="bilinear"
-    )
+    p = ggplot(data, aes("x", "y", fill="g")) + geom_raster(interpolation="bilinear")
     assert p == "rectangle"
 
 
@@ -42,9 +38,7 @@ def test_gap_no_interpolation():
 def test_gap_with_interpolation():
     data = _random_grid(3, 2)
     data.loc[4, "y"] = 3
-    p = ggplot(data, aes("x", "y", fill="g")) + geom_raster(
-        interpolation="bilinear"
-    )
+    p = ggplot(data, aes("x", "y", fill="g")) + geom_raster(interpolation="bilinear")
     # Warns about uneven vertical intervals
     with pytest.warns(PlotnineWarning):
         assert p == "gap_with_interpolation"

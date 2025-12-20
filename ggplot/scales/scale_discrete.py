@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, Mapping, Optional
+from typing import Any
 
 
 @dataclass
 class scale_discrete:
     aesthetic: str
-    values: Optional[Mapping[Any, Any]] = None
+    values: Mapping[Any, Any] | None = None
 
     def __radd__(self, other):
         if not hasattr(other, "scales"):

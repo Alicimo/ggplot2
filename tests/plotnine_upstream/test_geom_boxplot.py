@@ -49,9 +49,7 @@ def test_params():
     p = (
         ggplot(data, aes("x"))
         + geom_boxplot(data[:m], aes(y="y"), size=2, notch=True)
-        + geom_boxplot(
-            data[m : 2 * m], aes(y="y"), size=2, notch=True, notchwidth=0.8
-        )
+        + geom_boxplot(data[m : 2 * m], aes(y="y"), size=2, notch=True, notchwidth=0.8)
         +
         # outliers
         geom_boxplot(
@@ -95,9 +93,7 @@ def test_weight():
     data = pd.DataFrame(
         {
             "x": list("a" * 11 + "b" * 5),
-            "y": np.hstack(
-                [[1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 15], [1, 2, 3, 4, 15]]
-            ),
+            "y": np.hstack([[1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 15], [1, 2, 3, 4, 15]]),
             "weight": np.hstack([np.ones(11), [1, 2, 3, 4, 1]]),
         }
     )

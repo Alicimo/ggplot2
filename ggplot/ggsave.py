@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -12,8 +12,8 @@ def ggsave(
     filename: str | Path,
     *,
     plot: Any,
-    width: Optional[int] = None,
-    height: Optional[int] = None,
+    width: int | None = None,
+    height: int | None = None,
     scale: float = 1.0,
 ) -> Path:
     """Save a plot to an image file using Plotly + Kaleido.
@@ -43,4 +43,3 @@ def ggsave(
     # Requires kaleido at runtime.
     fig.write_image(str(path), width=width, height=height, scale=scale)
     return path
-

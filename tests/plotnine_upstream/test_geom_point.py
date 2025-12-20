@@ -36,12 +36,8 @@ def test_aesthetics():
         + geom_point(aes(x="d", alpha="a"), size=10, show_legend=False)
         + geom_point(aes(x="e", shape="factor(a)"), size=10, show_legend=False)
         + geom_point(aes(x="f", color="factor(a)"), size=10, show_legend=False)
-        + geom_point(
-            aes(x="g", fill="a"), stroke=0, size=10, show_legend=False
-        )
-        + geom_point(
-            aes(x="h", stroke="a"), fill="white", color="green", size=10
-        )
+        + geom_point(aes(x="g", fill="a"), stroke=0, size=10, show_legend=False)
+        + geom_point(aes(x="h", stroke="a"), fill="white", color="green", size=10)
         + geom_point(
             aes(x="i", shape="factor(a)"),
             fill="brown",
@@ -60,13 +56,9 @@ def test_no_fill():
     p = (
         ggplot(data, aes("x", "y"))
         + geom_point(color="red", fill=None, size=5, stroke=1.5)
-        + geom_point(
-            aes(y="y+1"), color="blue", fill="none", size=5, stroke=1.5
-        )
+        + geom_point(aes(y="y+1"), color="blue", fill="none", size=5, stroke=1.5)
         + geom_point(aes(y="y+2"), color="green", fill="", size=5, stroke=1.5)
-        + geom_point(
-            aes(y="y+3"), color="yellow", fill="gray", size=5, stroke=1.5
-        )
+        + geom_point(aes(y="y+3"), color="yellow", fill="gray", size=5, stroke=1.5)
     )
 
     assert p == "no_fill"

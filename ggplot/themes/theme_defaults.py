@@ -11,4 +11,3 @@ def theme_minimal() -> theme:
         yaxis_showgrid=True,
         gridcolor="#E5E5E5",
     )
-

@@ -45,9 +45,7 @@ def test_arrow():
             size=2,
             arrow=arrow(angle=60, length=0.8, ends="first"),
         )
-        + geom_path(
-            aes(y="y+4"), color="blue", size=2, arrow=arrow(length=0.8)
-        )
+        + geom_path(aes(y="y+4"), color="blue", size=2, arrow=arrow(length=0.8))
     )
 
     assert p == "arrow"
@@ -136,7 +134,5 @@ def test_groups_less_that_two_points():
         }
     )
 
-    p = ggplot(data) + geom_line(
-        aes(x="A", y="C", group="B", color="D"), size=2
-    )
+    p = ggplot(data) + geom_line(aes(x="A", y="C", group="B", color="D"), size=2)
     p.draw_test()

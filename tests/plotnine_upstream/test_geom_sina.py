@@ -5,9 +5,7 @@ from ggplot import aes, coord_flip, geom_sina, geom_violin, ggplot
 n = 50
 random_state = np.random.RandomState(123)
 uni = random_state.normal(5, 0.25, n)
-bi = np.hstack(
-    [random_state.normal(4, 0.25, n), random_state.normal(6, 0.25, n)]
-)
+bi = np.hstack([random_state.normal(4, 0.25, n), random_state.normal(6, 0.25, n)])
 tri = np.hstack(
     [
         random_state.normal(4, 0.125, n),

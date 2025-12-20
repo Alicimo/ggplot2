@@ -40,4 +40,3 @@ class stat_smooth(stat):
         ys = slope * xs + intercept
         out = pd.DataFrame({"x": xs, "y": ys})
         return out
-

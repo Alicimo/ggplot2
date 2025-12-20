@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import numpy as np
 
@@ -53,9 +53,10 @@ class GeomABLine(geom):
         return []
 
 
-def geom_abline(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomABLine:
+def geom_abline(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomABLine:
     mapping = mapping if mapping is not None else aes()
     g = GeomABLine(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

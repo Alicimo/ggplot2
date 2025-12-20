@@ -29,9 +29,7 @@ def number_to_word(n):
         return str(n)
 
 
-labeller_cols_both = labeller(
-    rows="label_value", cols="label_both", multi_line=False
-)
+labeller_cols_both = labeller(rows="label_value", cols="label_both", multi_line=False)
 
 labeller_towords = labeller(
     rows="label_both",

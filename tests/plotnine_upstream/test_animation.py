@@ -21,9 +21,7 @@ class _PlotnineAnimation(PlotnineAnimation):
     for the rest.
     """
 
-    def __init__(
-        self, plots, interval=200, repeat_delay=None, repeat=True, blit=False
-    ):
+    def __init__(self, plots, interval=200, repeat_delay=None, repeat=True, blit=False):
         self._draw_plots(plots)
 
 

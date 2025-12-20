@@ -31,4 +31,3 @@ class stat_bin(stat):
             }
         )
         return out
-

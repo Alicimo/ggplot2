@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -23,9 +23,10 @@ class GeomLineRange(geom):
         return [go.Scatter(x=x, y=y, mode="lines", showlegend=False)]
 
 
-def geom_linerange(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomLineRange:
+def geom_linerange(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomLineRange:
     mapping = mapping if mapping is not None else aes()
     g = GeomLineRange(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

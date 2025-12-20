@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -17,12 +17,17 @@ class GeomText(geom):
         textfont = {}
         if "color" in df.columns:
             textfont["color"] = df["color"]
-        return [go.Scatter(x=df["x"], y=df["y"], mode="text", text=df["label"], textfont=textfont)]
+        return [
+            go.Scatter(
+                x=df["x"], y=df["y"], mode="text", text=df["label"], textfont=textfont
+            )
+        ]
 
 
-def geom_text(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomText:
+def geom_text(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomText:
     mapping = mapping if mapping is not None else aes()
     g = GeomText(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

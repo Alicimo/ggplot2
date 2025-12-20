@@ -8,4 +8,3 @@ class coord:
     def __radd__(self, other):
         other.coord = self
         return other
-

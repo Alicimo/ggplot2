@@ -12,4 +12,3 @@ class scale:
             other.scales = []
         other.scales.append(self)
         return other
-

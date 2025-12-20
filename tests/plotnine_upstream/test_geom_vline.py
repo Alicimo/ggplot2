@@ -3,9 +3,7 @@ import pytest
 from ggplot import aes, geom_point, geom_vline, ggplot
 from ggplot.exceptions import PlotnineError, PlotnineWarning
 
-data = pd.DataFrame(
-    {"xintercept": [1, 2], "x": [0.5, 3], "y": [-1, 1], "z": range(2)}
-)
+data = pd.DataFrame({"xintercept": [1, 2], "x": [0.5, 3], "y": [-1, 1], "z": range(2)})
 
 
 def test_aesthetics():
@@ -14,12 +12,8 @@ def test_aesthetics():
         + geom_point(aes("x", "y"))
         + geom_vline(aes(xintercept="xintercept"), size=2)
         + geom_vline(aes(xintercept="xintercept+.1", alpha="z"), size=2)
-        + geom_vline(
-            aes(xintercept="xintercept+.2", linetype="factor(z)"), size=2
-        )
-        + geom_vline(
-            aes(xintercept="xintercept+.3", color="factor(z)"), size=2
-        )
+        + geom_vline(aes(xintercept="xintercept+.2", linetype="factor(z)"), size=2)
+        + geom_vline(aes(xintercept="xintercept+.3", color="factor(z)"), size=2)
         + geom_vline(aes(xintercept="xintercept+.4", size="z"))
     )
 

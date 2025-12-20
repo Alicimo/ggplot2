@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -34,13 +34,19 @@ class GeomViolin(geom):
 
         for xval, sub in df.groupby("x", dropna=False, sort=False):
             x0 = x_map.get(xval, 0.0)
-            x = list(x0 + sub["density"].to_numpy()) + list(reversed(x0 - sub["density"].to_numpy()))
+            x = list(x0 + sub["density"].to_numpy()) + list(
+                reversed(x0 - sub["density"].to_numpy())
+            )
             y = list(sub["y"]) + list(reversed(sub["y"]))
-            traces.append(go.Scatter(x=x, y=y, mode="lines", fill="toself", name=str(xval)))
+            traces.append(
+                go.Scatter(x=x, y=y, mode="lines", fill="toself", name=str(xval))
+            )
         return traces
 
 
-def geom_violin(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomViolin:
+def geom_violin(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomViolin:
     mapping = mapping if mapping is not None else aes()
     g = GeomViolin(mapping=mapping, data=data)
     g.stat = stat_density()

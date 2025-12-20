@@ -163,20 +163,14 @@ def test_dir_v_ncol():
 
 
 def test_variable_and_annotate():
-    p = (
-        g
-        + annotate("point", x=4.5, y=5.5, color="cyan", size=10)
-        + facet_wrap("g")
-    )
+    p = g + annotate("point", x=4.5, y=5.5, color="cyan", size=10) + facet_wrap("g")
     assert p == "variable_and_annotate"
 
 
 def test_manual_mapping_with_lists():
     p = (
         g
-        + annotate(
-            "abline", intercept=[4, 10], slope=[-1, -1], color=["red", "blue"]
-        )
+        + annotate("abline", intercept=[4, 10], slope=[-1, -1], color=["red", "blue"])
         + facet_wrap("var1")
     )
     assert p == "manual_mapping_with_lists"
@@ -186,9 +180,7 @@ def test_array_mapping_and_evaluation():
     # GH548
     # When we map to array/series of values, the aes evaluation
     # should not mix up the values.
-    data = pd.DataFrame(
-        {"x": range(12), "y": range(12), "g": list("abcd") * 3}
-    )
+    data = pd.DataFrame({"x": range(12), "y": range(12), "g": list("abcd") * 3})
 
     # should be the same as if color="g"
     p = (

@@ -19,14 +19,16 @@ class position_jitter(position):
         rng = np.random.default_rng(self.seed)
         if "x" in out.columns:
             try:
-                out["x"] = pd.to_numeric(out["x"], errors="raise").astype(float) + rng.uniform(
-                    -self.width, self.width, size=len(out)
-                )
+                out["x"] = pd.to_numeric(out["x"], errors="raise").astype(
+                    float
+                ) + rng.uniform(-self.width, self.width, size=len(out))
             except Exception:
                 pass
         if "y" in out.columns:
             try:
-                out["y"] = out["y"].astype(float) + rng.uniform(-self.height, self.height, size=len(out))
+                out["y"] = out["y"].astype(float) + rng.uniform(
+                    -self.height, self.height, size=len(out)
+                )
             except Exception:
                 pass
         return out

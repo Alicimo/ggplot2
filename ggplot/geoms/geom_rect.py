@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -34,9 +34,10 @@ class GeomRect(geom):
         return traces
 
 
-def geom_rect(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomRect:
+def geom_rect(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomRect:
     mapping = mapping if mapping is not None else aes()
     g = GeomRect(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

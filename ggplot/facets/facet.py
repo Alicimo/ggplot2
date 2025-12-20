@@ -13,4 +13,3 @@ class facet:
     def __radd__(self, other):
         other.facet = self
         return other
-

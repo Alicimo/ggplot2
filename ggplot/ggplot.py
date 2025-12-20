@@ -2,19 +2,19 @@ from __future__ import annotations
 
 from copy import deepcopy
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 from ._utils.data import as_data_frame
+from .coords.coord_cartesian import CoordCartesian
 from .exceptions import PlotAddError
+from .facets.facet_null import facet_null
 from .layers import Layers
 from .mapping.aes import aes
 from .typing import DataLike, PlotAddable
-from .facets.facet_null import facet_null
-from .coords.coord_cartesian import CoordCartesian
 
 
 class ggplot:
@@ -24,7 +24,7 @@ class ggplot:
     Rendering/build pipeline is added in later phases.
     """
 
-    def __init__(self, data: Optional[DataLike] = None, mapping: Optional[aes] = None):
+    def __init__(self, data: DataLike | None = None, mapping: aes | None = None):
         self.data: pd.DataFrame = as_data_frame(data)
         self.mapping: aes = mapping if mapping is not None else aes()
 
@@ -46,11 +46,11 @@ class ggplot:
         other.__radd__(self)
         return self
 
-    def __add__(self, rhs: PlotAddable | list[PlotAddable] | None) -> "ggplot":
+    def __add__(self, rhs: PlotAddable | list[PlotAddable] | None) -> ggplot:
         p = deepcopy(self)
         return p.__iadd__(rhs)
 
-    def __radd__(self, other: Any) -> "ggplot":
+    def __radd__(self, other: Any) -> ggplot:
         raise PlotAddError(f"Cannot add ggplot to {type(other)!r}")
 
     def __or__(self, rhs):
@@ -65,17 +65,15 @@ class ggplot:
 
     @dataclass(frozen=True)
     class Built:
-        plot: "ggplot"
+        plot: ggplot
         layers_data: list[pd.DataFrame]
 
-    def build(self) -> "ggplot.Built":
+    def build(self) -> ggplot.Built:
         plot_data = self.data
         layers_data: list[pd.DataFrame] = []
         for lyr in self.layers:
             df = lyr.setup_data(plot_data)
             df = lyr.resolve_mapping(df, plot_mapping=self.mapping)
-
-            fill_label = df["fill"].copy() if "fill" in df.columns else None
 
             # Preserve unmapped discrete labels for guides before scales overwrite.
             # Convention: store original discrete values in a "colour" column.
@@ -133,7 +131,11 @@ class ggplot:
                 # If layer data includes the facet column, filter to this panel.
                 df = layer_df
                 facet_col = getattr(self.facet, "facets", None)
-                if facet_col and facet_col in df.columns and facet_col in panel_df.columns:
+                if (
+                    facet_col
+                    and facet_col in df.columns
+                    and facet_col in panel_df.columns
+                ):
                     key = panel_df[facet_col].iloc[0] if not panel_df.empty else None
                     df = df[df[facet_col] == key]
 
@@ -145,7 +147,10 @@ class ggplot:
 
         # Coordinate system (v0: coord_flip only)
         if self.coord.__class__.__name__ in {"CoordFlip"}:
-            fig.update_layout(xaxis=dict(title=self.labels.get("y")), yaxis=dict(title=self.labels.get("x")))
+            fig.update_layout(
+                xaxis=dict(title=self.labels.get("y")),
+                yaxis=dict(title=self.labels.get("x")),
+            )
             fig.update_layout(yaxis=dict(autorange="reversed"))
 
         if title := self.labels.get("title"):
@@ -184,31 +189,51 @@ class ggplot:
         # Apply trained scales (v0: only x/y continuous limits and breaks).
         for s in getattr(self, "scales", []):
             if getattr(s, "aesthetic", None) == "x":
-                if hasattr(s, "limits") and getattr(s, "limits", None) is not None and (not hasattr(s, "train")):
+                if (
+                    hasattr(s, "limits")
+                    and getattr(s, "limits", None) is not None
+                    and (not hasattr(s, "train"))
+                ):
                     # discrete axis ordering
-                    fig.update_xaxes(categoryorder="array", categoryarray=list(s.limits))
+                    fig.update_xaxes(
+                        categoryorder="array", categoryarray=list(s.limits)
+                    )
                     continue
                 xdomain = None
                 for df in built.layers_data:
                     if "x" in df.columns:
-                        xdomain = s.train(df["x"]) if xdomain is None else (
-                            min(xdomain[0], s.train(df["x"])[0]),
-                            max(xdomain[1], s.train(df["x"])[1]),
+                        xdomain = (
+                            s.train(df["x"])
+                            if xdomain is None
+                            else (
+                                min(xdomain[0], s.train(df["x"])[0]),
+                                max(xdomain[1], s.train(df["x"])[1]),
+                            )
                         )
                 if xdomain is not None:
                     fig.update_xaxes(range=list(xdomain))
                 if getattr(s, "breaks", None) is not None:
                     fig.update_xaxes(tickmode="array", tickvals=list(s.breaks))
             if getattr(s, "aesthetic", None) == "y":
-                if hasattr(s, "limits") and getattr(s, "limits", None) is not None and (not hasattr(s, "train")):
-                    fig.update_yaxes(categoryorder="array", categoryarray=list(s.limits))
+                if (
+                    hasattr(s, "limits")
+                    and getattr(s, "limits", None) is not None
+                    and (not hasattr(s, "train"))
+                ):
+                    fig.update_yaxes(
+                        categoryorder="array", categoryarray=list(s.limits)
+                    )
                     continue
                 ydomain = None
                 for df in built.layers_data:
                     if "y" in df.columns:
-                        ydomain = s.train(df["y"]) if ydomain is None else (
-                            min(ydomain[0], s.train(df["y"])[0]),
-                            max(ydomain[1], s.train(df["y"])[1]),
+                        ydomain = (
+                            s.train(df["y"])
+                            if ydomain is None
+                            else (
+                                min(ydomain[0], s.train(df["y"])[0]),
+                                max(ydomain[1], s.train(df["y"])[1]),
+                            )
                         )
                 if ydomain is not None:
                     fig.update_yaxes(range=list(ydomain))

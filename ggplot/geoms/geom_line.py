@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -43,7 +43,9 @@ class GeomLine(geom):
         return traces
 
 
-def geom_line(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomLine:
+def geom_line(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomLine:
     mapping = mapping if mapping is not None else aes()
     g = GeomLine(mapping=mapping, data=data)
     g.params.update(kwargs)

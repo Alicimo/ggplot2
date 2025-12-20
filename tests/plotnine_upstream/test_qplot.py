@@ -57,9 +57,7 @@ def test_multiple_geoms():
     n = 3
     m = 10
     # n stairs of points, each m points high
-    data = pd.DataFrame(
-        {"x": np.repeat(range(n), m), "y": np.linspace(0, n, n * m)}
-    )
+    data = pd.DataFrame({"x": np.repeat(range(n), m), "y": np.linspace(0, n, n * m)})
     p = qplot("factor(x)", "y", data=data, geom=("boxplot", "point"))
     assert p == "multiple_geoms"
 

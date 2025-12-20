@@ -1,20 +1,20 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 import pandas as pd
 
+from .geoms.geom_bar import geom_bar
+from .geoms.geom_point import geom_point
 from .ggplot import ggplot
 from .mapping.aes import aes
-from .geoms.geom_point import geom_point
-from .geoms.geom_bar import geom_bar
 
 
 def qplot(
-    x: Optional[Any] = None,
-    y: Optional[Any] = None,
+    x: Any | None = None,
+    y: Any | None = None,
     *,
-    data: Optional[pd.DataFrame] = None,
+    data: pd.DataFrame | None = None,
     geom: str = "point",
     **kwargs: Any,
 ):
@@ -36,4 +36,3 @@ def qplot(
     if geom == "bar":
         return p + geom_bar(**kwargs)
     raise ValueError(f"Unsupported geom for qplot: {geom!r}")
-

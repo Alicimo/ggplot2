@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Iterable, Sequence
 
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -39,4 +39,3 @@ def _as_plot_list(items) -> list:
     if isinstance(items, Sequence) and not isinstance(items, (str, bytes)):
         return list(items)
     return [items]
-

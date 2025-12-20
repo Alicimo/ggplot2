@@ -15,4 +15,3 @@ class stat:
 
     def compute(self, df: pd.DataFrame, *, mapping: dict[str, Any]) -> pd.DataFrame:
         return df
-

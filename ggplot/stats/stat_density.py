@@ -45,4 +45,3 @@ class stat_density(stat):
         if "x" in df.columns:
             out["x"] = df["x"].iloc[0]
         return out
-

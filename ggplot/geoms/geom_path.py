@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -41,9 +41,10 @@ class GeomPath(geom):
         return traces
 
 
-def geom_path(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomPath:
+def geom_path(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomPath:
     mapping = mapping if mapping is not None else aes()
     g = GeomPath(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

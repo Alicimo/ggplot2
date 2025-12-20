@@ -22,7 +22,11 @@ def pytest_collection_modifyitems(config, items):
     for item in items:
         path = str(item.fspath)
         if "/tests/plotnine_upstream/" in path:
-            item.add_marker(pytest.mark.skip(reason="vendored plotnine upstream tests (not yet supported)"))
+            item.add_marker(
+                pytest.mark.skip(
+                    reason="vendored plotnine upstream tests (not yet supported)"
+                )
+            )
 
 
 def pytest_ignore_collect(collection_path, config):

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import ceil
-from typing import Optional
 
 import pandas as pd
 
@@ -12,8 +11,8 @@ from .facet import facet
 
 @dataclass
 class facet_grid(facet):
-    rows: Optional[str] = None
-    cols: Optional[str] = None
+    rows: str | None = None
+    cols: str | None = None
 
     def get_panels(self, df: pd.DataFrame):
         if self.rows is None and self.cols is None:
@@ -47,7 +46,6 @@ class facet_grid(facet):
             return (1, 1)
         # Determine rows/cols from unique values when possible.
         # Caller provides n_panels, so choose a square-ish layout as fallback.
-        ncol = int(ceil(n_panels ** 0.5))
+        ncol = int(ceil(n_panels**0.5))
         nrow = int(ceil(n_panels / ncol))
         return (nrow, ncol)
-

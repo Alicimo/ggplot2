@@ -284,12 +284,8 @@ def test_scale_manual():
     assert sc2.view().labels == ["B", "A", "C"]
 
     # Breaks are matched with values
-    sc1 = scale_manual.scale_color_manual(
-        breaks=[True, False], values=["blue", "red"]
-    )
-    sc2 = scale_manual.scale_color_manual(
-        breaks=[True, False], values=["red", "blue"]
-    )
+    sc1 = scale_manual.scale_color_manual(breaks=[True, False], values=["blue", "red"])
+    sc2 = scale_manual.scale_color_manual(breaks=[True, False], values=["red", "blue"])
     assert sc1.map([True, False, True, False]) == ["blue", "red"] * 2
     assert sc2.map([True, False, True, False]) == ["red", "blue"] * 2
 
@@ -354,9 +350,7 @@ def test_discrete_xy_scale_limits():
 
 
 def test_discrete_xy_scale_drop_limits():
-    data = pd.DataFrame(
-        {"x": list("aaaabbbbccccddd"), "c": list("112312231233123")}
-    )
+    data = pd.DataFrame({"x": list("aaaabbbbccccddd"), "c": list("112312231233123")})
 
     p = (
         ggplot(data)
@@ -623,18 +617,14 @@ def test_missing_manual_dict_aesthetic():
 def test_missing_data_discrete_scale():
     data = pd.DataFrame({"a": [1, 2, 3], "b": ["a", "b", np.nan]})
 
-    p = ggplot(data, aes("a", "a")) + geom_point(
-        aes(fill="b"), stroke=0, size=10
-    )
+    p = ggplot(data, aes("a", "a")) + geom_point(aes(fill="b"), stroke=0, size=10)
     assert p == "missing_data_discrete_scale"
 
 
 def test_missing_data_discrete_position_scale():
     data = pd.DataFrame({"a": [1, 2, 3], "b": ["a", "b", None]})
 
-    p = ggplot(data, aes("a", "b")) + geom_point(
-        aes(fill="b"), stroke=0, size=10
-    )
+    p = ggplot(data, aes("a", "b")) + geom_point(aes(fill="b"), stroke=0, size=10)
 
     with pytest.warns(PlotnineWarning):
         assert p == "missing_data_discrete_position_scale"
@@ -670,11 +660,7 @@ def test_legend_ordering_global_aesthetics_2():
 def test_legend_ordering_local_aethetics_1():
     # 1. color
     # 2. shape
-    p = (
-        ggplot(data)
-        + aes("x", "y")
-        + geom_point(aes(color="w", shape="z"), size=5)
-    )
+    p = ggplot(data) + aes("x", "y") + geom_point(aes(color="w", shape="z"), size=5)
 
     assert p == "legend_ordering_local_aesthetics_1"
 
@@ -682,11 +668,7 @@ def test_legend_ordering_local_aethetics_1():
 def test_legend_ordering_local_aethetics_2():
     # 1. shape
     # 2. color
-    p = (
-        ggplot(data)
-        + aes("x", "y")
-        + geom_point(aes(shape="z", color="w"), size=5)
-    )
+    p = ggplot(data) + aes("x", "y") + geom_point(aes(shape="z", color="w"), size=5)
 
     assert p == "legend_ordering_local_aesthetics_2"
 
@@ -695,11 +677,7 @@ def test_legend_ordering_mixed_scope_aesthetics():
     # The local(geom) aesthetics come first.
     # 1. color
     # 2. shape
-    p = (
-        ggplot(data)
-        + aes("x", "y", shape="z")
-        + geom_point(aes(color="w"), size=5)
-    )
+    p = ggplot(data) + aes("x", "y", shape="z") + geom_point(aes(color="w"), size=5)
 
     assert p == "legend_ordering_mixed_scope_aesthetics"
 
@@ -905,9 +883,5 @@ def test_transform_datetime_aes_param():
     )
     yparam: list[datetime] = list(data["y"] + timedelta(days=30))
 
-    p = (
-        ggplot(data, aes("x", "y"))
-        + geom_point()
-        + geom_point(y=yparam, color="red")
-    )
+    p = ggplot(data, aes("x", "y")) + geom_point() + geom_point(y=yparam, color="red")
     assert p == "transform_datetime_aes_param"

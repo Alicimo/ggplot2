@@ -46,12 +46,8 @@ def test_text_aesthetics():
     p = (
         ggplot(data, aes(y="y", label="label"))
         + geom_text(aes("x", label="label"), size=15, ha="left")
-        + geom_text(
-            aes("x+1", angle="angle"), size=15, va="top", show_legend=False
-        )
-        + geom_text(
-            aes("x+2", label="label", alpha="z"), size=15, show_legend=False
-        )
+        + geom_text(aes("x+1", angle="angle"), size=15, va="top", show_legend=False)
+        + geom_text(aes("x+2", label="label", alpha="z"), size=15, show_legend=False)
         + geom_text(aes("x+3", color="factor(z)"), size=15, show_legend=False)
         + geom_text(aes("x+5", size="z"), ha="right", show_legend=False)
         + scale_size_continuous(range=(12, 30))
@@ -71,12 +67,8 @@ def test_label_aesthetics():
             show_legend=False,
             boxcolor="red",
         )
-        + geom_label(
-            aes("x+1", angle="angle"), size=15, va="top", show_legend=False
-        )
-        + geom_label(
-            aes("x+2", label="label", alpha="z"), size=15, show_legend=False
-        )
+        + geom_label(aes("x+1", angle="angle"), size=15, va="top", show_legend=False)
+        + geom_label(aes("x+2", label="label", alpha="z"), size=15, show_legend=False)
         + geom_label(aes("x+3", color="factor(z)"), size=15, show_legend=False)
         + geom_label(aes("x+5", size="z"), ha="right", show_legend=False)
         + scale_size_continuous(range=(12, 30))

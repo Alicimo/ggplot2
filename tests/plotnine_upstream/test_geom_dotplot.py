@@ -68,9 +68,7 @@ class TestGrouping:
         assert p == "group_basic"  # Yes same as above
 
     def test_group_stackgroups(self):
-        p = self.p + geom_dotplot(
-            bins=15, binpositions="all", stackgroups=True
-        )
+        p = self.p + geom_dotplot(bins=15, binpositions="all", stackgroups=True)
 
         assert p == "group_stackgroups"
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 from .exceptions import PlotAddError
 
@@ -13,10 +13,10 @@ class labs:
     Phase 0: stores labels on the plot object under `plot.labels`.
     """
 
-    title: Optional[str] = None
-    x: Optional[str] = None
-    y: Optional[str] = None
-    caption: Optional[str] = None
+    title: str | None = None
+    x: str | None = None
+    y: str | None = None
+    caption: str | None = None
 
     def __radd__(self, other):
         if not hasattr(other, "__dict__"):
@@ -25,7 +25,12 @@ class labs:
         if labels is None:
             other.labels = {}
             labels = other.labels
-        for key, value in ("title", self.title), ("x", self.x), ("y", self.y), ("caption", self.caption):
+        for key, value in (
+            ("title", self.title),
+            ("x", self.x),
+            ("y", self.y),
+            ("caption", self.caption),
+        ):
             if value is not None:
                 labels[key] = value
         return other

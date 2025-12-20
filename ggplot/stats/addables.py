@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 from ..exceptions import PlotAddError
+from ..geoms.geom_point import GeomPoint
+from ..geoms.geom_pointrange import GeomPointrange
 from ..layer import layer
 from ..mapping.aes import aes
 from ..positions.position_identity import position_identity
-from ..geoms.geom_point import GeomPoint
-from ..geoms.geom_pointrange import GeomPointrange
 from .stat_summary import stat_summary as StatSummary
 from .stat_summary_range import stat_summary_range as StatSummaryRange
 
@@ -16,7 +16,7 @@ from .stat_summary_range import stat_summary_range as StatSummaryRange
 @dataclass
 class stat_summary_addable:
     mapping: aes
-    data: Optional[Any] = None
+    data: Any | None = None
     fun: str = "mean"
 
     def __radd__(self, other):
@@ -37,7 +37,7 @@ class stat_summary_addable:
 @dataclass
 class stat_summary_range_addable:
     mapping: aes
-    data: Optional[Any] = None
+    data: Any | None = None
 
     def __radd__(self, other):
         if not hasattr(other, "layers"):
@@ -54,10 +54,15 @@ class stat_summary_range_addable:
         return other
 
 
-def stat_summary(mapping: Optional[aes] = None, data: Optional[Any] = None, *, fun: str = "mean"):
-    return stat_summary_addable(mapping if mapping is not None else aes(), data=data, fun=fun)
+def stat_summary(
+    mapping: aes | None = None, data: Any | None = None, *, fun: str = "mean"
+):
+    return stat_summary_addable(
+        mapping if mapping is not None else aes(), data=data, fun=fun
+    )
 
 
-def stat_summary_range(mapping: Optional[aes] = None, data: Optional[Any] = None):
-    return stat_summary_range_addable(mapping if mapping is not None else aes(), data=data)
-
+def stat_summary_range(mapping: aes | None = None, data: Any | None = None):
+    return stat_summary_range_addable(
+        mapping if mapping is not None else aes(), data=data
+    )

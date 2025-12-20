@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
-from typing import Callable, Optional, Sequence
 
 import numpy as np
 
@@ -20,22 +20,25 @@ class scale_position_transformed(scale_position_continuous):
         return self.transform(arr)
 
 
-def scale_x_log10(*, limits=None, breaks: Optional[Sequence[float]] = None) -> scale_position_transformed:
+def scale_x_log10(
+    *, limits=None, breaks: Sequence[float] | None = None
+) -> scale_position_transformed:
     return scale_position_transformed(
         aesthetic="x",
         limits=limits,
         breaks=breaks,
         transform=lambda a: np.log10(a),
-        inverse=lambda a: 10 ** a,
+        inverse=lambda a: 10**a,
     )
 
 
-def scale_y_log10(*, limits=None, breaks: Optional[Sequence[float]] = None) -> scale_position_transformed:
+def scale_y_log10(
+    *, limits=None, breaks: Sequence[float] | None = None
+) -> scale_position_transformed:
     return scale_position_transformed(
         aesthetic="y",
         limits=limits,
         breaks=breaks,
         transform=lambda a: np.log10(a),
-        inverse=lambda a: 10 ** a,
+        inverse=lambda a: 10**a,
     )
-

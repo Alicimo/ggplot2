@@ -23,9 +23,7 @@ def test_aesthetics():
         )
         + geom_polygon(aes(y="y+9", color="z"), fill=None, size=2)
         + geom_polygon(aes(y="y+12", fill="factor(z)"))
-        + geom_polygon(
-            aes(y="y+15", size="z"), color="yellow", show_legend=False
-        )
+        + geom_polygon(aes(y="y+15", size="z"), color="yellow", show_legend=False)
     )
 
     assert p == "aesthetics"

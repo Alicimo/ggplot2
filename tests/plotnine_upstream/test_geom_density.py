@@ -52,11 +52,7 @@ def test_few_datapoints():
     assert any("e.g `bw=0.1`" in str(r.message) for r in record)
     assert any("Groups with fewer than 2" in str(r.message) for r in record)
 
-    p = (
-        ggplot(data, aes("x", color="z"))
-        + geom_density(bw=0.1)
-        + lims(x=(0, 4))
-    )
+    p = ggplot(data, aes("x", color="z")) + geom_density(bw=0.1) + lims(x=(0, 4))
     assert p == "few_datapoints"
 
 

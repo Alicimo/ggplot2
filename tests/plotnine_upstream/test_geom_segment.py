@@ -24,9 +24,7 @@ def test_aesthetics():
         geom_segment(aes(yend="yend+1", color="factor(z)"), size=2)
         + geom_segment(aes(yend="yend+2", linetype="factor(z)"), size=2)
         + geom_segment(aes(yend="yend+3", size="z"), show_legend=False)
-        + geom_segment(
-            aes(yend="yend+4", alpha="z"), size=2, show_legend=False
-        )
+        + geom_segment(aes(yend="yend+4", alpha="z"), size=2, show_legend=False)
     )
 
     assert p == "aesthetics"
@@ -36,12 +34,8 @@ def test_arrow():
     p = (
         ggplot(data, aes("x", "y", xend="xend", yend="yend"))
         + geom_segment(aes("x+2", xend="xend+2"), arrow=arrow(), size=2)
-        + geom_segment(
-            aes("x+4", xend="xend+4"), arrow=arrow(ends="first"), size=2
-        )
-        + geom_segment(
-            aes("x+6", xend="xend+6"), arrow=arrow(ends="both"), size=2
-        )
+        + geom_segment(aes("x+4", xend="xend+4"), arrow=arrow(ends="first"), size=2)
+        + geom_segment(aes("x+6", xend="xend+6"), arrow=arrow(ends="both"), size=2)
     )
 
     assert p == "arrow"
@@ -51,12 +45,8 @@ def test_arrow_coord_flip():
     p = (
         ggplot(data, aes("x", "y", xend="xend", yend="yend"))
         + geom_segment(aes("x+2", xend="xend+2"), arrow=arrow(), size=2)
-        + geom_segment(
-            aes("x+4", xend="xend+4"), arrow=arrow(ends="first"), size=2
-        )
-        + geom_segment(
-            aes("x+6", xend="xend+6"), arrow=arrow(ends="both"), size=2
-        )
+        + geom_segment(aes("x+4", xend="xend+4"), arrow=arrow(ends="first"), size=2)
+        + geom_segment(aes("x+6", xend="xend+6"), arrow=arrow(ends="both"), size=2)
         + coord_flip()
     )
 

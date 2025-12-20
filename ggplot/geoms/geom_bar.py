@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
 from ..mapping.aes import aes
+from ..positions.position_dodge import position_dodge
 from ..positions.position_identity import position_identity
 from ..positions.position_stack import position_stack
-from ..positions.position_dodge import position_dodge
 from ..stats.stat_count import stat_count
 from .geom import geom
 
@@ -34,14 +34,28 @@ class GeomBar(geom):
             traces = []
             # If we computed stacking, all rows for each fill share same x.
             for key, sub in df.groupby("fill", dropna=False, sort=False):
-                name = sub["fill_label"].iloc[0] if "fill_label" in sub.columns and not sub.empty else key
+                name = (
+                    sub["fill_label"].iloc[0]
+                    if "fill_label" in sub.columns and not sub.empty
+                    else key
+                )
                 marker = {"color": key}
                 if "ymin" in sub.columns and "ymax" in sub.columns:
                     base = sub["ymin"]
                     height = sub["ymax"] - sub["ymin"]
-                    traces.append(go.Bar(x=sub["x"], y=height, base=base, marker=marker, name=str(name)))
+                    traces.append(
+                        go.Bar(
+                            x=sub["x"],
+                            y=height,
+                            base=base,
+                            marker=marker,
+                            name=str(name),
+                        )
+                    )
                 else:
-                    traces.append(go.Bar(x=sub["x"], y=sub[ycol], marker=marker, name=str(name)))
+                    traces.append(
+                        go.Bar(x=sub["x"], y=sub[ycol], marker=marker, name=str(name))
+                    )
             return traces
 
         # If stacking was computed, render using base + height.
@@ -54,8 +68,8 @@ class GeomBar(geom):
 
 
 def geom_bar(
-    mapping: Optional[aes] = None,
-    data: Optional[Any] = None,
+    mapping: aes | None = None,
+    data: Any | None = None,
     *,
     stat: str = "count",
     position: str = "stack",

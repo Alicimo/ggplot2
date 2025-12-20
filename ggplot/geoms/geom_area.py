@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 
@@ -15,8 +15,16 @@ class GeomArea(geom):
         if "x" not in df.columns or "y" not in df.columns:
             return []
         df = df.sort_values("x", kind="stable")
-        fillcolor = df["fill"].iloc[0] if "fill" in df.columns and not df.empty else "rgba(0,0,0,0.2)"
-        linecolor = df["color"].iloc[0] if "color" in df.columns and not df.empty else "rgba(0,0,0,0)"
+        fillcolor = (
+            df["fill"].iloc[0]
+            if "fill" in df.columns and not df.empty
+            else "rgba(0,0,0,0.2)"
+        )
+        linecolor = (
+            df["color"].iloc[0]
+            if "color" in df.columns and not df.empty
+            else "rgba(0,0,0,0)"
+        )
         return [
             go.Scatter(
                 x=df["x"],
@@ -30,9 +38,10 @@ class GeomArea(geom):
         ]
 
 
-def geom_area(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomArea:
+def geom_area(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomArea:
     mapping = mapping if mapping is not None else aes()
     g = GeomArea(mapping=mapping, data=data)
     g.params.update(kwargs)
     return g
-

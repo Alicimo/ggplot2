@@ -25,4 +25,3 @@ class position_nudge(position):
             except Exception:
                 pass
         return out
-

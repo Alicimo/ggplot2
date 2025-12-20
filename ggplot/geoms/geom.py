@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any
 
 from ..exceptions import PlotAddError
 from ..layer import layer
@@ -18,7 +18,7 @@ class geom:
     """
 
     mapping: aes = field(default_factory=aes)
-    data: Optional[Any] = None
+    data: Any | None = None
     inherit_aes: bool = True
     show_legend: bool | dict[str, bool] | None = None
     stat: Any = field(default_factory=stat_identity)

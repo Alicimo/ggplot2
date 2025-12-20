@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
-
-import plotly.graph_objects as go
+from typing import Any
 
 from ..mapping.aes import aes
 from .geom import geom
@@ -37,7 +35,9 @@ class GeomVLine(geom):
         return []
 
 
-def geom_vline(mapping: Optional[aes] = None, data: Optional[Any] = None, **kwargs: Any) -> GeomVLine:
+def geom_vline(
+    mapping: aes | None = None, data: Any | None = None, **kwargs: Any
+) -> GeomVLine:
     mapping = mapping if mapping is not None else aes()
     g = GeomVLine(mapping=mapping, data=data)
     g.params.update(kwargs)

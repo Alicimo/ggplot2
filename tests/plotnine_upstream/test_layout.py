@@ -117,11 +117,7 @@ class TestLayout:
     def test_plot_margin_aspect_ratio(self):
         # The margin should be exact in both directions even if
         # the figure has an aspect ratio != 1.
-        p = (
-            ggplot()
-            + geom_blank()
-            + theme(plot_margin=0.025, figure_size=(4, 3))
-        )
+        p = ggplot() + geom_blank() + theme(plot_margin=0.025, figure_size=(4, 3))
         assert p == "plot_margin_aspect_ratio"
 
     def test_plot_margin_protruding_axis_text(self):
@@ -130,9 +126,7 @@ class TestLayout:
         p = (
             ggplot(data, aes("x", "y"))
             + geom_point()
-            + scale_y_continuous(
-                labels=["0", "1", "2", "3", "four-four-four-four"]
-            )
+            + scale_y_continuous(labels=["0", "1", "2", "3", "four-four-four-four"])
             + labs(title="Protruding Axis Text")
             + theme(
                 axis_text_y=element_text(
@@ -276,9 +270,7 @@ class TestPlotTagLayout:
     g = (
         ggplot(data)
         + geom_point(aes("x", "y", color="x"))
-        + annotate(
-            "point", x=5, y=5, color="green", shape="s", size=10, alpha=0.5
-        )
+        + annotate("point", x=5, y=5, color="green", shape="s", size=10, alpha=0.5)
         + annotate("vline", xintercept=5, color="green", size=0.5, alpha=0.5)
         + annotate("hline", yintercept=5, color="green", size=0.5, alpha=0.5)
         + annotate(
@@ -327,9 +319,7 @@ class TestPlotTagLayout:
 
     def test_plot_topright_margin_in_fig(self):
         p = self.g + theme(
-            plot_tag=element_text(
-                margin={"t": 0.025, "r": 0.45, "unit": "fig"}
-            ),
+            plot_tag=element_text(margin={"t": 0.025, "r": 0.45, "unit": "fig"}),
             plot_tag_location="plot",
             plot_tag_position="topright",
         )
@@ -353,9 +343,7 @@ class TestPlotTagLayout:
     def test_panel_topleft_margin_in_fig(self):
         # In the center of the bottom-left quadrant
         p = self.g + theme(
-            plot_tag=element_text(
-                margin={"t": 0.75, "l": 0.75, "unit": "fig"}
-            ),
+            plot_tag=element_text(margin={"t": 0.75, "l": 0.75, "unit": "fig"}),
             plot_tag_location="panel",
             plot_tag_position="topleft",
         )

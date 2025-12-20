@@ -22,9 +22,7 @@ def test_mean_cl_boot():
 
 
 def test_mean_cl_normal():
-    p = ggplot(data, aes("x", "y")) + stat_summary(
-        fun_data="mean_cl_normal", size=2
-    )
+    p = ggplot(data, aes("x", "y")) + stat_summary(fun_data="mean_cl_normal", size=2)
 
     assert p == "mean_cl_normal"
 
@@ -36,9 +34,7 @@ def test_mean_sdl():
 
 
 def test_median_hilow():
-    p = ggplot(data, aes("x", "y")) + stat_summary(
-        fun_data="median_hilow", size=2
-    )
+    p = ggplot(data, aes("x", "y")) + stat_summary(fun_data="median_hilow", size=2)
 
     assert p == "median_hilow"
 

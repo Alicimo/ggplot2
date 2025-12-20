@@ -24,9 +24,7 @@ def test_guide_legend_after_scale():
         ha = f"{round(a * 255):#04X}"[2:]
         return [f"{hex_color}{ha}" for hex_color in series]
 
-    data = pd.DataFrame(
-        {"var1": [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5]}
-    )
+    data = pd.DataFrame({"var1": [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5]})
     p = (
         ggplot(
             data,

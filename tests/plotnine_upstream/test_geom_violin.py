@@ -41,17 +41,11 @@ def test_scale():
         +
         # Red should envelop blue
         geom_violin(aes(y="y"), scale="width", color="red", fill="red", size=2)
-        + geom_violin(
-            aes(y="y"), scale="area", color="blue", fill="blue", size=2
-        )
-        + geom_violin(
-            data[:36], aes(y="y+25"), scale="count", color="green", size=2
-        )
+        + geom_violin(aes(y="y"), scale="area", color="blue", fill="blue", size=2)
+        + geom_violin(data[:36], aes(y="y+25"), scale="count", color="green", size=2)
         +
         # Yellow should envelop green
-        geom_violin(
-            aes(y="y+25"), scale="count", color="yellow", fill="yellow", size=2
-        )
+        geom_violin(aes(y="y+25"), scale="count", color="yellow", fill="yellow", size=2)
         + geom_violin(
             data[:36],
             aes(y="y+25"),

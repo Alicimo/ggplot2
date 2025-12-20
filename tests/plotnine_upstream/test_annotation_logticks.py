@@ -76,9 +76,7 @@ def test_annotation_logticks_coord_flip():
 
 def test_annotation_logticks_coord_flip_discrete():
     data = pd.DataFrame({"x": 10.0 ** (np.arange(4) - 1)})
-    data2 = data.assign(
-        discrete=pd.Categorical(["A" + str(int(a)) for a in data["x"]])
-    )
+    data2 = data.assign(discrete=pd.Categorical(["A" + str(int(a)) for a in data["x"]]))
     # the range on the 'A' range is 0..1,
     # but 0.1..100 on the y
     # to verify we are using the correct range for the log ticks
@@ -100,9 +98,7 @@ def test_annotation_logticks_coord_flip_discrete():
 
 def test_annotation_logticks_coord_flip_discrete_bottom():
     data = pd.DataFrame({"x": 10.0 ** (np.arange(4) - 1)})
-    data2 = data.assign(
-        discrete=pd.Categorical(["A" + str(int(a)) for a in data["x"]])
-    )
+    data2 = data.assign(discrete=pd.Categorical(["A" + str(int(a)) for a in data["x"]]))
     # the range on the 'A' range is 0..1,
     # but 0.1..100 on the y
     # to verify we are using the correct range for the log ticks

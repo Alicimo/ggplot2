@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Optional, Sequence
 
 import numpy as np
 
@@ -10,8 +10,8 @@ from .scale import scale
 
 @dataclass
 class scale_position_continuous(scale):
-    limits: Optional[tuple[float, float]] = None
-    breaks: Optional[Sequence[float]] = None
+    limits: tuple[float, float] | None = None
+    breaks: Sequence[float] | None = None
 
     def train(self, values) -> tuple[float, float]:
         arr = np.asarray(values, dtype=float)
@@ -29,4 +29,3 @@ def scale_x_continuous(*, limits=None, breaks=None) -> scale_position_continuous
 
 def scale_y_continuous(*, limits=None, breaks=None) -> scale_position_continuous:
     return scale_position_continuous(aesthetic="y", limits=limits, breaks=breaks)
-

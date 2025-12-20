@@ -6,8 +6,8 @@ from collections.abc import Iterable
 class Layers(list):
     """Container for layers.
 
-Phase 0: list subclass used by ggplot for + operator wiring.
-"""
+    Phase 0: list subclass used by ggplot for + operator wiring.
+    """
 
     def __iadd__(self, other):
         if isinstance(other, Iterable) and not isinstance(other, (str, bytes)):
@@ -15,4 +15,3 @@ Phase 0: list subclass used by ggplot for + operator wiring.
         else:
             self.append(other)
         return self
-

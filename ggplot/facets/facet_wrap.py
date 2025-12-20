@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import ceil
-from typing import Optional
 
 import pandas as pd
 
@@ -13,7 +12,7 @@ from .facet import facet
 @dataclass
 class facet_wrap(facet):
     facets: str
-    ncol: Optional[int] = None
+    ncol: int | None = None
 
     def get_panels(self, df: pd.DataFrame):
         if self.facets not in df.columns:
@@ -27,9 +26,8 @@ class facet_wrap(facet):
         if n_panels <= 0:
             return (1, 1)
         if self.ncol is None:
-            ncol = int(ceil(n_panels ** 0.5))
+            ncol = int(ceil(n_panels**0.5))
         else:
             ncol = int(self.ncol)
         nrow = int(ceil(n_panels / ncol))
         return (nrow, ncol)
-

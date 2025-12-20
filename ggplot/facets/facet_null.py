@@ -11,4 +11,3 @@ from .facet import facet
 class facet_null(facet):
     def get_panels(self, df: pd.DataFrame):
         return [("", df)]
-

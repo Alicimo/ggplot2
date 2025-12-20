@@ -17,6 +17,28 @@ dependencies = [
   "kaleido>=0.2",
 ]
 
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "ruff>=0.8",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+extend-exclude = ["tests/plotnine_upstream"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/plotnine_upstream/**" = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
 [tool.setuptools]
 package-dir = {"" = "."}
 
@@ -28,4 +50,3 @@ include = ["ggplot*"]
 members = [
     "ggplot2",
 ]
-

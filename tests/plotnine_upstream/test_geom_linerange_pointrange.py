@@ -32,16 +32,12 @@ def test_pointrange_aesthetics():
     p = (
         ggplot(data, aes("x"))
         + geom_pointrange(aes(y="y", ymin="ymin", ymax="ymax"), size=2)
-        + geom_pointrange(
-            aes(y="y+1", ymin="ymin+1", ymax="ymax+1", alpha="z"), size=2
-        )
+        + geom_pointrange(aes(y="y+1", ymin="ymin+1", ymax="ymax+1", alpha="z"), size=2)
         + geom_pointrange(
             aes(y="y+2", ymin="ymin+2", ymax="ymax+2", linetype="factor(z)"),
             size=2,
         )
-        + geom_pointrange(
-            aes(y="y+3", ymin="ymin+3", ymax="ymax+3", color="z"), size=2
-        )
+        + geom_pointrange(aes(y="y+3", ymin="ymin+3", ymax="ymax+3", color="z"), size=2)
         + geom_pointrange(aes(y="y+4", ymin="ymin+4", ymax="ymax+4", size="z"))
     )
     assert p == "pointrange_aesthetics"
