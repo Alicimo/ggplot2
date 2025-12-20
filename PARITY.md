@@ -126,6 +126,10 @@ Notes:
 
 ## Scales
 
+Notes:
+
+- Continuous `color`/`fill` scales now map to Plotly colorscales for `geom_point` and heatmap-like geoms (`geom_tile`, `geom_raster`).
+
 ### Implemented (9)
 - `scale_color_manual`
 - `scale_colour_manual`
